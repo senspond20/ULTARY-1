@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+
+/* ---헤더 ------------------------------------------------ */
+
+header{
+	width: 100%;
+    height: 350px;
+}
+
+/* ---헤더 상단바------------------------------------------------ */
+
+#header-top{
+	width:100%;
+	height:40px;
+	overflow:hidden;
+}
+.headerimg{
+	width:30px;
+	height:30px;
+	margin-top:5px;
+	margin-left:10px;
+	float:left;
+	cursor: pointer;
+}
+#logimg{
+	margin-top:2.4px;
+	margin-left:510px;
+	width:55px;
+	height:35px;
+	float:left;
+}
+#header-topR{
+	width:240px;
+	height:100%;
+	margin-top: -12.7px;
+	float:right;
+}
+#nick{
+	float:left;
+	margin-top: 15px;
+    font-size: 25px;
+    color: red;
+    text-align: right;
+    width: 90px;
+}
+#nim{
+	float:left;
+	margin-top: 7.8px;
+    margin-left: 5px;
+    font-size: 35px;
+}
+#logout{
+	float: right;
+    margin-top: 17.2px;
+    margin-right: 15.1px;
+    width: 80px;
+    height: 30px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    background-color: #FFDC6C;
+    border-width: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ---헤더 하단바------------------------------------------------ */
+
+#header-bottom{
+	width: 100%;
+    height: 270px;
+    background: gray;
+    overflow: hidden;
+}
+#backimg{
+	width:100%;
+	overflow:hidden;
+}
+#proimgdiv{
+	top: -54.9%;
+    left: 3.1%;
+    position: relative;
+    z-index: 100;
+    width: 250px;
+    height: 250px;
+}
+#proimg{
+	width:100%;
+	height:100%;
+	border-radius: 120px;
+}
+
+/* ---프로필 사진변경------------------------------------------------ */
+
+#promaindiv{
+	position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    opacity:0;
+}
+
+/* -----알림창------------------------------------------ */
+
+.alert:after, .alert:before {
+	bottom: 100%;
+    left: 13.4%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.alert:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #5CD1E5;
+	border-width: 30px;
+	margin-left: -30px;
+}
+.alert:before {
+	border-color: rgba(0, 0, 0, 0);
+	border-width: 36px;
+	margin-left: -36px;
+}
+.alert{
+	position: relative;
+    top: 36.5px;
+    left: 11.4px;
+    z-index: 900;
+    background: #5CD1E5;
+    border-radius: 5px;
+    width: 400px;
+    min-height: 300px;
+    display:none;
+}
+#alerttitle{
+	width:400px;
+	height:50px;
+	border-radius:20px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 50px;
+}
+.alertcontentdiv{
+	border: 1px solid black;
+	width:380px;
+	height: 50px;
+	margin-left: 10px;
+	border-radius: 10px;
+	font-size: 18px;
+	line-height: 50px;
+	background:white;
+}
+.alertcontent{
+	float: left;
+	width:330px;
+	text-align: center;
+	margin-left: 10px;
+}
+.alertclose{
+	width:40px;
+	height:50px;
+	float: right;
+	line-height: 50px;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 20px;
+}
+#alertspace{
+	height: 10px;
+}
+
+#alert-wrap{
+	position: absolute;
+    width: 500px;
+    min-height: 310px;
+    margin-top: 40px;
+}

@@ -1,0 +1,93 @@
+@charset "UTF-8";
+	/* 파란색 박스 / 하얀색 박스 */
+.cmcontent{
+	padding:10px;
+	background-color:rgb(215, 238, 253);
+}
+.cm_wrap{
+	background:white;
+	padding:15px;
+}
+.cmcontent a{
+	text-decoration: none;
+	color:inherit;
+}
+	/*맨 위에 카테고리 부분 나오는곳*/
+	#cm_detail_head{text-align:left;}
+	/* 제목 부분*/
+	#cdt_title{float:left;font-size:20px;font-weight:500;}
+	#cdt_wdate{float:right;}
+	#cdt_border{height:10px;;border-bottom-color:lightgray;border-bottom-style:dashed;}
+	#cdt_detail_writer{text-align:left;margin-top:10px;margin-bottom:30px;}
+	#cdt_profile{width:40px;height:40px;border-radius:100%;}
+	#cdt_detail_writer img,a{vertical-align: middle;}
+	#cdt_content{text-align:left;}
+	#cdt_img{width:500px;height:500px;}
+	#cdt_detail_content{text-align:left;}
+	#cdt_like_recom_report{text-align:left;vertical-align: middle;margin-top:50px;margin-bottom:50px;}
+	#cdt_like_recom_report img,button{vertical-align: middle;}
+	#cdt_like_recom_report span{margin-left:10px;}
+	#cdt_like_recom_report>#cdt_report{width:80px; height:38px;float:right;}
+	#cdt_commend_list{background:rgb(224, 224, 224);}
+	#ul_clist{list-style-type:none;padding:10px 10px 0 10px;}
+	#cdt_per_commend a:hover{cursor:pointer;}
+	#cdt_per_commend{text-align:left;}
+	#cdt_com_profile{width:45px;height:45px;border-radius:100%;}
+	.cdt_commend_line{border-bottom-style: dotted; border-bottom-color:#999999;border-bottom-width:2px;}
+	.cdt_com_con img a{vertical-align: middle;}
+	.cdt_com_con {padding-top:10px;padding-bottom:10px;}
+	.cdt_per_com_all{border-bottom-style: solid;border-bottom-color:lightgray;}
+	.per_com_con {margin-top:10px;margin-bottom:10px;}
+	.per_com_ans {margin-top:10px;margin-bottom:10px;}
+	.per_com_ans a{padding:5px;padding-left:10px;padding-right:10px;border-style: solid; border-color:#999999 ;border-width: 1px;}
+	/* 답글창 css */
+	.ans_write{display:none;text-align: left;border-bottom-style: solid;border-bottom-color:lightgray;padding: 30px;}
+	.ans_ta_en,.wrap_ans_ta,.wrap_ansbtn{display:inline-block;}
+	.wrap_ans_ta{background: white;padding:10px; text-align:center;vertical-align: middle;border-color:gray;border-style:solid;border-width:1px;}
+	.ans_ta{resize: none;border-color: white;}
+	.wrap_ansbtn{padding:32px;border-style: solid;text-align: center;border-width: 1px;border-color:gray;}
+	.wrap_ansbtn:hover{cursor:pointer;}
+	/* 댓글창 css */
+	#cdt_reply{padding:10px 0 26px 35px;text-align:left;}
+	#cdt_textarea_enroll,#wrap_textarea,#wrap_enbtn{display:inline-block;}
+	#wrap_textarea{background:white;padding:10px;text-align: center;vertical-align: middle;border-color:gray;border-style:solid;border-width:1px;}
+	#cdt_textarea{resize: none;border-color: white;}
+	#wrap_enbtn{padding:32px;border-style: solid;text-align: center;border-width: 1px;border-color:gray;}
+	#wrap_enbtn:hover{cursor:pointer;}
+	/* 슬라이드 */
+.slide{
+width: 550px;
+height: 100%;
+overflow: hidden;
+position: relative;
+margin-left: 143.8px;
+}
+      .slide ul{
+      	width:3000px;
+        position: absolute;
+        top:0;
+        left:0;
+        font-size: 0;
+        padding: 0;
+      }
+      .slide ul li{
+        display: inline-block;
+      }
+      div[id^=back]{
+        position: absolute;
+        top: 130px;
+        left: 0;
+        cursor: pointer;
+        z-index: 1;
+      }
+      div[id^=next]{
+        position: absolute;
+        top: 130px;
+        right: 0;
+        cursor: pointer;
+        z-index: 1;
+      }
+.media{
+	width:100%;
+	height:320px;
+}

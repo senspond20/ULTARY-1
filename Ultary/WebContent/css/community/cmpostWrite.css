@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/* 공지사항,게시판 헤더 css */
+.maincap{
+	text-align:left;
+	margin-left:10px;
+}
+.cap_p_head{
+	font-weight:bold;
+	font-size:30px;
+	display:inline;
+}
+.cap_p_tag{
+	font-weight:600; 
+	font-size:15px;
+	display:inline;
+}
+/*파란색 , 흰색 박스*/
+.cmcontent{
+	padding:10px;
+	background-color:rgb(215, 238, 253);
+}
+.cm_wrap{
+	background:white;
+	padding:15px;
+}
+.cmcontent a{
+	text-decoration: none;
+	color:inherit;
+}
+/* 게시판 크기 조정 css */
+.board_all .num{width:10%;}
+.board_all .tit{width:40%;}
+.board_all .writer{width:15%;}
+.board_all .wdate{width:15%;}
+.board_all .recommend{width:10%;}
+.board_all .view{width:10%;}
+
+.boardhead,
+.boardbody .boardcontent{
+	font-size:0px;	
+	padding:10px 0;
+}
+.boardhead>div,
+.boardbody .boardcontent>div{
+	display:inline-block;
+	font-size:15px;
+}
+.boardhead>div{
+	font-weight:bold;
+}
+.boardhead{
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	background:#ccc;
+}
+.boardbody .boardcontent{
+	border-top:1px solid lightgray;
+	border-bottom :1px solid lightgray;
+}
+
+/* 검색 박스 css*/
+.searchselect>select{
+	width:200px;
+	height:30px;
+	vertical-align: middle;
+}
+.textbox{
+	width:180px;
+	height:25px;
+}
+.find{
+	background-color:rgb(244, 219, 179);
+	border-color: rgb(244, 219, 179);
+	width:80px;
+	height:33px;
+	border-width: 0;
+	font-weight: bold;
+	border-radius: 15%;
+}
+/* 글쓰기 버튼 css */
+.writebtn>a{
+	margin:20px;
+	padding:5px;
+	display:block;
+	background:rgb(244, 219, 179);
+	font-weight: bold;
+	float:right;
+	border-radius:10%;
+}

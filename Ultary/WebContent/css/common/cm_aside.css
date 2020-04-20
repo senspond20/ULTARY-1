@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+/* --사이드 카테고리------------------------------------------------ */
+
+aside{
+	margin-left:20px;
+	float:left;
+	width:205px;
+	min-height:363px;
+	border:1px solid gray;
+	border-radius: 50px;
+}
+aside>ul{
+	list-style: none;
+}
+aside>ul li{
+	border-radius:5px;
+	text-align: center;
+	margin-left: -24.3px;
+    margin-top: 25px;
+    margin-right:5.1px;
+	background:white;
+	font-size:23px;
+	height: 43.3px;
+    width: 175px;
+}
+aside>ul>li a{
+	text-decoration: none;
+	color:black;
+}

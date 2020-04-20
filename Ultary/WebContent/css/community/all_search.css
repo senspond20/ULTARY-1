@@ -1,0 +1,168 @@
+@charset "UTF-8";
+/* 전체글 조회시 헤더*/
+ #main{
+ 	text-align: left;
+	font-weight:bold;
+	margin-bottom:30px;
+ }
+ #p1{
+	text-align:center;
+	font-size:35px;
+}
+#p2{
+	text-align:center;
+	font-size:20px;
+}
+.hr{
+	align:"center";
+	width:80%;
+	height:2px;
+	background-color:lightgray;
+	border-color:lightgray;
+}
+/*검색 조건 설정 css*/
+.selecttop{
+	vertical-align: middle;
+}
+.searchselect{
+	text-align: center;
+}
+.searchselect>select{
+	width:200px;
+	height:30px;
+	vertical-align: middle;
+}
+.textbox{
+	width:150px;
+	height:25px;
+}
+.find{
+	background-color:rgb(244, 219, 179);
+	border-color: rgb(244, 219, 179);
+	width:80px;
+	height:30px;
+}
+/*게시물 정렬 과 펼쳐보기 css*/
+.open{
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.open select{
+	width:100px;
+	height:30px;
+}
+.open button{width:80px;height:30px;}
+.openbtn{
+	width:80px;
+	height:30px;
+	text-align:center;
+}
+/*파란 박스,흰색박스  css*/
+.cmcontent{
+	padding:10px;
+	background-color:rgb(215, 238, 253);
+}
+.cm_wrap{
+	background:white;
+	padding:15px;
+}
+.cmcontent a{
+	text-decoration: none;
+	color:inherit;
+}
+/* 전체 조회 게시판 크기 조정 css*/
+.board_all{text-align: center;}
+.board_all .num{
+	width:5%;
+}
+.board_all .allcategory{
+	width:15%;
+	text-align: center;
+}
+.board_all .tit{
+	width:45%;
+	text-align: center;
+}
+.board_all .boardbody .tit a:hover{
+	text-decoration:underline;
+}
+.board_all .writer{
+	width:10%;
+}
+.board_all .wdate{
+	width:15%;
+}
+.board_all .recommend{
+	width:5%;
+}
+.board_all .view{
+	width:5%;
+}
+.boardhead,
+.boardbody .boardcontent{
+	font-size:0px;	
+	padding:10px 0;
+}
+.boardhead>div,
+.boardbody .boardcontent>div{
+	display:inline-block;
+	font-size:15px;
+}
+.boardhead>div{
+	font-weight:bold;
+}
+.boardhead{
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	background:#ccc;
+}
+.boardbody .boardcontent{
+	border-top:1px solid lightgray;
+	border-bottom :1px solid lightgray;
+}
+/*펼쳐보기 눌렀을때 보이는 화면 css*/
+.boardopen{
+	display:none;
+}
+.oprofile{
+	margin:10px;
+	width:10%;
+	float:left;
+}
+.opencontent{
+	margin:10px;
+	text-align:left;
+}
+.otitle{
+	font-weight:bold;
+}
+.likecount{
+	margin:10px;
+	text-align:right;
+	
+}
+.cwriter{
+	color:blue;
+	font-weight:bold;
+	margin-right:10px;
+}
+/*페이지 번호 css*/
+.paging{
+	clear:both;
+	margin-top:50px;
+}
+.paging a{
+	padding:5px;
+	font-size:20px;
+}
+.paging a{
+	display:inline-block;
+	width:30px;
+	border-radius:100px;
+	background:rgb(244, 244, 244);
+}
+/*글쓰기 버튼 css*/
+.wbtn{
+	margin:20px;
+	float:right;
+}

@@ -1,0 +1,56 @@
+@charset "UTF-8";
+ #matching{width:100%;height:100px;border:none;margin-left:5px;float:left;display:block;}
+	#title{text-align:left;font-family:Dotum,"돋움",Helvetica,"Apple SD Gothic Neo",sans-serif;float:left;
+			margin-top: 26px;  margin-bottom: 29px;}
+	#title-1{text-align: left; margin-top: 43px; display: block;margin-left: 115px;}
+	#page{width: 100%; height: 686px; background-color: hsla(197, 62%, 74%, 0.603); float: left; margin-left: 4px;}
+	#page1{ width: 95%; height: 612px; background-color: white;margin-left: 22px; margin-top: 10px;
+    		border-radius: 20px;padding-top:36px;}
+	#page2{margin-left: 23px; width: 95%; height: 130px; background-color:hsla(197, 62%, 74%, 0.603);
+			border-radius: 20px;}
+	#page2-1{width:100%;height:69%; float: left; }
+	#page2-2{width:50%;height:29%; float: left; margin-top: 93px;}
+	.content-profile{margin:0 auto; width:91%;height:100px;	background-color:white;
+					border-radius:10px;	margin-top: 12px; box-shadow: 7px 10px;}
+	.profile-photo{width:60px;height:60px;margin-left:30px;margin-top:20px;
+					border-radius:30px;	float:left;}
+	.name{margin-top:50px; margin-right: 97px;font-weight: bold;font-size: 25px;}
+	.address{display:inline-block; }
+	.infoDiv{padding-top: 10px;padding-left: 20px; float: left;}
+	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 248px; background: pink;
+	    		cursor: pointer; text-align: center;display: inline-block; border-radius:8px;color:white;}
+	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 247px; background: pink;
+	   			 cursor: pointer; text-align: center;  display: inline-block;border-radius:8px;color:white;}
+	#like{margin-left:15px;}
+	#review-box{width:100%;height:462px;}
+	#review-title{float: left;  width: 9%;text-aligh: left;    margin-left: 64px;
+    text-align: start;}
+	#date{float:right;margin-top: 24px;}
+	#review-box-top{width:100%;height:66px;}
+	#review{width:80%;    height: 269px;margin-left:97px;}
+	#point{display:inline-block;width:80%;height:50px;margin-left:50px}
+	#button{width:150px; height:40px;background:orange;    float: right;
+   			 margin-right: 114px; cursor:pointer; text-align:center;}
+	
+.star-input>.input,
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('Ultary/views/trustMatch/image/grade_img.png')no-repeat;}
+.star-input{display:inline-block; white-space:nowrap;width:225px;height:40px;padding:25px;line-height:30px;}
+.star-input>.input{display:inline-block;width:150px;background-size:150px;height:28px;white-space:nowrap;overflow:hidden;position: relative;}
+.star-input>.input>input{position:absolute;width:1px;height:1px;opacity:0;}
+star-input>.input.focus{outline:1px dotted #ddd;}
+.star-input>.input>label{width:30px;height:0;padding:28px 0 0 0;overflow: hidden;float:left;cursor: pointer;position: absolute;top: 0;left: 0;}
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{background-size: 150px;background-position: 0 bottom;}
+.star-input>.input>label:hover~label{background-image: none;}
+.star-input>.input>label[for="p1"]{width:30px;z-index:5;}
+.star-input>.input>label[for="p2"]{width:60px;z-index:4;}
+.star-input>.input>label[for="p3"]{width:90px;z-index:3;}
+.star-input>.input>label[for="p4"]{width:120px;z-index:2;}
+.star-input>.input>label[for="p5"]{width:150px;z-index:1;}
+.star-input>output{display:inline-block;width:60px; font-size:18px;text-align:right; vertical-align:middle;}
+	
+		
+		
