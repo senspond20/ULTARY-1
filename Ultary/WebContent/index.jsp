@@ -8,5 +8,6 @@
 </head>
 <body>
 	<%@ include file="views/main/main.jsp" %>
+	<P>똥컴</P>
 </body>
 </html>
