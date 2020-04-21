@@ -248,6 +248,14 @@ public class Member {
 	public void setStatus(char status) {
 		this.status = status;
 	}
+	
+	public int getTrustmeans() {
+		return trustmeans;
+	}
+
+	public void setTrustmeans(int trustmeans) {
+		this.trustmeans = trustmeans;
+	}
 
 	@Override
 	public String toString() {

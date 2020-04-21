@@ -19,6 +19,7 @@
 	#mypage{
 		width:900px;
 		height:1500px;
+		table-layout: fixed;
 	}
 	
 	#title{
@@ -217,11 +218,11 @@
 						var passwordNC = $('#passwordNC');
 						
 				       if(passwordN.val() == passwordNC.val()){
-				          $('#pwdcheck2').text('비밀번호가 일치합니다.');
+				          $('#pwdcheck2').text('비밀번호가 일치합니다');
 				          $('#pwdcheck2').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
 				          newpwdcheck = true;
 				       }else{
-				          $('#pwdcheck2').text('비밀번호가 일치하지 않습니다.');
+				          $('#pwdcheck2').text('비밀번호가 일치하지 않습니다');
 				          $('#pwdcheck2').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 				          newpwdcheck = false;
 				       }
