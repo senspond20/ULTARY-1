@@ -12,6 +12,8 @@ public class TrustPost {
 	private String sushin; // 위탁수신자 닉네임
 	private String balshin; 
 	private int position;
+	private int petnum;
+	private int trnum;
 	
 	public TrustPost() {}
 

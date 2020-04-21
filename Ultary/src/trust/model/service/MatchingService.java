@@ -177,6 +177,18 @@ public class MatchingService {
 		return tr;
 	}
 
+	public int updatetr(TrustReview tr) {
+		Connection conn = getConnection();
+		
+		int result = new MatchingDAO().updatetr(conn,tr);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 
 
 

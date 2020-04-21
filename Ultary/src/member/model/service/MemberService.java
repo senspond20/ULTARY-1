@@ -62,4 +62,5 @@ public class MemberService {
 		return markList;
 	}
 
+	
 }

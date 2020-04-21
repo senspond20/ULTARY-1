@@ -611,5 +611,29 @@ public class MatchingDAO {
 		
 		return tr;
 	}
+	
+	public int updatetr(Connection conn, TrustReview tr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatetr");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, tr.getTrContent());
+			pstmt.setInt(2, tr.getTrScore());
+			pstmt.setInt(3, tr.getTrNum());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 
 }
