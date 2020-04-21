@@ -10,9 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
+import member.model.vo.Pet;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -418,7 +421,224 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public int memberUpdate(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getNickname());
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3, m.getPhone());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setInt(5, m.getPwQuery());
+			pstmt.setString(6, m.getPwqAns());
+			pstmt.setString(7, m.getTrust() + "");
+			pstmt.setInt(8, m.getTrustmeans());
+			pstmt.setString(9, m.getTrustfield());
+			pstmt.setString(10, m.getTrustAdd());
+			pstmt.setString(11, m.getMemberId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+			
+		return result;
+	}
+	
+	public int pwdUpdate(Connection conn, Member b, String passwordN) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("pwdUpdate");
+		System.out.println(passwordN);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, passwordN);
+			pstmt.setString(2, b.getMemberId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);	
+		}
+				
+		return result;
+	}
 
+	public int deleteMember(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			
+		return result;
+	}
+
+	public int insertPet(Connection conn, Pet p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPet");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, p.getPetName());
+			pstmt.setInt(2, p.getPetage());
+			pstmt.setString(3, p.getPetGender() + "");
+			pstmt.setString(4, p.getPetKind() + "");
+			pstmt.setString(5, p.getMemberId());
+		
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+			
+		return result;
+	}
+
+	public int chkMemeber(Connection conn, Member b, String passwordN) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		
+		//넣는 닉네임에 대한 갯수를 셈
+		String query = prop.getProperty("chkMemeber");
+		
+		 try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getMemberId().trim());
+			pstmt.setString(2, b.getPassword().trim());
+			
+			rset = pstmt.executeQuery();
+			//결과값이 0~1개
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		 } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		 System.out.println("디비다녀온 결과"+result);
+		return result;
+	}
+
+	public int insertPetImage(Connection conn, Media m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPetImage");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getImgroute());
+			pstmt.setString(2, m.getImgName());
+			pstmt.setString(3, m.getWebName());
+			pstmt.setString(4, m.getMemberId());
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+			
+		return result;
+	}
+
+	public ArrayList<Pet> loginPet(Connection conn, String memberid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null; 
+		ArrayList<Pet> p = new ArrayList<Pet>();
+		
+		String query = prop.getProperty("loginPet");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberid);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Pet pet = new Pet(rset.getInt("petnum"),
+								  rset.getString("petname"),
+								  rset.getInt("petage"),
+								  rset.getString("petgender").charAt(0),
+								  rset.getString("petkind").charAt(0),
+								  rset.getString("memberid"));
+				
+				p.add(pet);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
+	}
+
+	public ArrayList<Media> loginMedia(Connection conn, String memberid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null; 
+		ArrayList<Media> m = new ArrayList<Media>();
+		
+		String query = prop.getProperty("loginMedia");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberid);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Media media = new Media(rset.getInt("medianum"),
+										rset.getString("imgroute"),
+										rset.getString("imgname"),
+										rset.getString("webname"),
+										rset.getInt("mediause"),
+										rset.getString("memberid"),
+										rset.getInt("postnum"),
+										rset.getInt("petnum"));
+				m.add(media);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
 	
 
 }
