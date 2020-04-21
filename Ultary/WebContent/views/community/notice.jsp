@@ -17,7 +17,8 @@
 <meta charset="UTF-8">
 <title>커뮤니티 공지사항</title>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/notice.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/board.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/pagingbtn.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -35,9 +36,9 @@
         		<div class="maincap">
         			<p class="cap_p_head">공지사항</p><br>
         			<p class="cap_p_tag">커뮤니티 내 공지사항을 모아서 보여드립니다.</p>
-        			</div>
-        			<hr id="mainhr">
-        			<form>
+        		<hr id="mainhr">
+        		</div>
+        			<form action="<%= request.getContextPath() %>/commnunity/cmSearch.po" method="post" onsubmit="return check();">
         			<div class="search_wrap">
         			<div class="searchselect">
 		        		<select id="date">
@@ -47,12 +48,11 @@
 		        			<option value="1month">1달</option>
 		        		</select>
 		        		<select id="searchcon">
-		        			<option value="title+content" selected>제목+내용</option>
+		        			<option value="ct" selected>제목+내용</option>
 		        			<option value="onlytitle">제목만</option>
 		        			<option value="writer">작성자</option>
 		        		</select>
         				<input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox">
-        				&nbsp;
         				<input type="submit" value="검색" class="find">
         			</div>
         			</div>
@@ -64,7 +64,9 @@
         				<option>추천순</option>
         			</select>
         			<% if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>	
-	     		<div class="writebtn" onclick="location.href='views/community/cmpostWrite.jsp'"><a>글쓰기</a></div>
+	     		<div class="writebtn" onclick="location.href='views/community/cmnpostWrite.jsp'">
+	     		<img src="<%= request.getContextPath() %>/image/연필.png">글쓰기
+	     		</div>
 	     		<% } %>
         		</div>
      	<div class="cmcontent">
@@ -98,9 +100,9 @@
      				%> 
      				</div>
 	     			</div>
-	     		</div>
+	     		
 	     		<!-- 페이징 -->
-	     		<div class="pagingArea" align="center">
+	     		<div class="pagingArea" align="center"  style="padding-top:10px;">
 	     		<% if(!nlist.isEmpty()) { %>
 	     			<!-- 맨 처음으로 가는 버튼 -->
 	     				<button onclick="location.href='<%=request.getContextPath()%>/cmnotice.po?currentPage=1'">&lt;&lt;</button>
@@ -130,6 +132,7 @@
 			<button onclick="location.href='<%= request.getContextPath() %>/cmnotice.po?currentPage=<%=maxPage %>'">&gt;&gt;</button>
 		<% } %>
 	     		</div>
+	     		</div>
 	     	</div>
 			</section>
 		</div>
@@ -144,6 +147,15 @@
 					location.href="<%= request.getContextPath() %>/cmdetail.po?pno=" + num;
 				});
 			});
+			
+			function check() {
+				if($('.textbox').val() == ""){
+					alert('검색어를 입력해주세요');
+					$('.textbox').focus();
+					return false;
+				}
+				return true;
+			}
 			</script>
 			</div>
 			<footer>from.hoseong</footer>

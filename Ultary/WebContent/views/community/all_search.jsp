@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import ="member.model.vo.Member,post.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import ="member.model.vo.*,post.model.vo.*, java.util.ArrayList"%>
     
 <% 
-   ArrayList<Post> allList = (ArrayList)request.getAttribute("AllList"); 
+   	ArrayList<Post> allList = (ArrayList)request.getAttribute("AllList"); 
+
+	ArrayList<Media> allMList = (ArrayList)request.getAttribute("AllMList");
    
+	Media proImg = (Media)session.getAttribute("proImg");
+
     PageInfo pi = (PageInfo)request.getAttribute("pi");
        
        int currentPage = pi.getCurrentPage();
@@ -34,7 +38,7 @@
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
 				<section>
-					<form>
+					<form action="<%= request.getContextPath() %>/cmSearch.po" method="post" onsubmit="return check();">
            <div id="main">
               <p id="p1">너와 나의 울타리</p>
               <p id="p2">좀 더 가까워지는 공간<p>
@@ -42,24 +46,25 @@
            </div>
               <div class="selecttop">
                  <div class="searchselect">
-                    <select>
-                       <option value="all" selected>전체기간</option>
-                       <option value="1day">1일</option>
-                       <option value="1week">1주</option>
-                       <option value="1month">1달</option>
+                    <select name="date">
+                       <option value="0" selected>전체기간</option>
+                       <option value="1">1일</option>
+                       <option value="7">1주</option>
+                       <option value="30">1달</option>
                     </select>
-                    <select>
-                       <option value="allboard" selected>전체게시판</option>
-                       <option value="daily">펫일상</option>
-                       <option value="knowledge">펫지식</option>
-                       <option value="review">펫리뷰</option>
+                    <select name="categorynum">
+                       <option value="0" selected>전체게시판</option>
+                       <option value="2">펫일상</option>
+                       <option value="3">펫지식</option>
+                       <option value="4">펫리뷰</option>
+                       <option value="5">펫분양</option>
                     </select>
-                    <select>
-                       <option value="title+content" selected>제목+내용</option>
-                       <option value="onlytitle">제목만</option>
+                    <select name="searchcon">
+                       <option value="ct" selected>제목+내용</option>
+                       <option value="title">제목만</option>
                        <option value="writer">작성자</option>
                     </select>
-                    <input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox">
+                    <input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox" name="searchtext">
                     &nbsp;
                     <input type="submit" value="검색" class="find">
                  </div>
@@ -95,7 +100,8 @@
                     <% if(allList.isEmpty()) {  %>
                     <div>게시글 없음</div>
                     <% } else {
-                           for(Post p : allList){
+                           for(int i=0;i<allList.size();i++){
+                        Post p = allList.get(i);
                     %>
                        <% String cname ="";
                        switch(p.getCategorynum()){
@@ -103,8 +109,7 @@
                        case 3: cname ="펫지식";break;
                        case 4: cname ="펫리뷰";break;
                        case 5: cname ="펫분양";break;
-                       }
-                       %>
+                       } %>
                        <div class="boardcontent">
                       <div class="num"><%= p.getPostNum() %></div>
                       <div class="allcategory"><%= cname %></div>
@@ -116,10 +121,31 @@
                       </div>      
                       <div class="boardopen">
                     <div class="oprofile">
-                          <img src="image/account.PNG">
+                   
                     </div>
                        <div class="opencontent">
                        <div class="otitle"><a href="#"><%= p.getPostTitle() %></a></div>
+                       <% ArrayList<Media> imgList = new ArrayList<Media>();
+                       	for(int j =0;j<allMList.size();j++){
+                       		Media m = allMList.get(j);
+                         if(p.getPostNum() == m.getPostNum()){
+                       			imgList.add(m);
+                       		}
+                       	}  %>
+                       <% if(!imgList.isEmpty()){%>
+ 					<div class="media">
+						<div class="slide" id="slide<%= i %>">
+					      <div id="back<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/왼쪽 화살표.png" alt="" width="50"></div>
+					      <ul>
+					      <% for(int z=0;z<imgList.size();z++){
+					      	Media real = imgList.get(z); %>
+					        <li><img src="<%= request.getContextPath() %>/uploadFiles/<%= real.getWebName() %>" alt="" width="550" height="350"></li>
+					      <% } %>
+					      </ul>
+					      <div id="next<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/오른쪽 화살표.png" alt="" width="50"></div>
+					    </div>
+					</div>                      
+                       <% } %>
                        <div class="odetail"><%= p.getPostContent() %></div>
                        <div class="commen"><label class="cwriter">댓글쓴</label><label>댓글댓글</label></div>
                        </div>
@@ -128,12 +154,53 @@
                        <img src="<%=request.getContextPath()%>/images/like.png">&nbsp;100
                     </div>
                  </div>
+                 <script>
+                 // 이미지 슬라이드 
+                 $(document).ready(function(){
+                	 var imgs;
+                     var img_count;
+                     var img_position = 1;
+                     var slide = "#slide"+<%= i %>+" ul";
+                     var backbtn = "#back"+<%= i %>;
+                     var nextbtn = "#next"+<%= i %>;
+
+                     imgs = $(slide);
+                     $back = $(backbtn);
+                     $next = $(nextbtn);
+                     img_count = imgs.children().length;
+
+                     //버튼을 클릭했을 때 함수 실행
+                     $back.click(function () {
+                       back();
+                     });
+                     $next.click(function () {
+                       next();
+                     });
+
+                     function back() {
+                       if(1<img_position){
+                         imgs.animate({
+                           left:'+=550px'
+                         });
+                         img_position--;
+                       }
+                     }
+                     function next() {
+                       if(img_count>img_position){
+                         imgs.animate({
+                           left:'-=550px'
+                         });
+                         img_position++;
+                       }
+                     }
+                 });
+                 </script>
                  <%
                            }
                     }   
                     %>
-                             
-                 <div class="wbtn"><button>글쓰기</button></div>
+                 <div class="wbtn_wrap"><div class="wbtn"><img src="<%=request.getContextPath()%>/image/연필.png" id="pencil">글쓰기</div></div>
+              </div>
               </div>
               <!-- 페이징 -->
               <div class="pagingArea" align="center">
@@ -167,8 +234,9 @@
       <% } %>
               </div>
            </div>
-        </div>
-           <script>
+         </div>
+				</section>
+				<script>
            var check = $("input[type='checkbox']");
          check.click(function(){
             $('.boardopen').slideToggle();
@@ -183,9 +251,18 @@
                location.href="<%= request.getContextPath() %>/cmdetail.po?pno=" + num;
             });
          });
+         $('.wbtn').click(function(){
+        	location.href="<%= request.getContextPath() %>/views/community/cmpostWrite.jsp?cnum=0";
+         });
+         function check() {
+				if($('.textbox').val() == ""){
+					alert('검색어를 입력해주세요');
+					$('.textbox').focus();
+					return false;
+				}
+				return true;
+			}
       </script>
-         </div>
-				</section>
 			</div>
 			<footer>from.hoseong</footer>
 		</div>

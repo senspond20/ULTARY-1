@@ -14,16 +14,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<title>커뮤니티 펫일상</title>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/pet_daily.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/board.css">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/togglebtn.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
+</head>
 <body>
 	<div id="all">
 		<div id="all-wrap">
@@ -32,12 +32,12 @@
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
 				<section>
-					<div class="maincap">
+				<div class="maincap">
         			<p class="cap_p_head">펫일상</p><br>
-        			<p class="cap_p_tag">일상공유 게시판</p>
-        			</div>
+        			<p class="cap_p_tag">반려동물의 일상을 공유하는 게시판 입니다</p>
         			<hr id="mainhr">
-        			<form>
+        		</div>
+        			<form action="<%= request.getContextPath() %>/commnunity/cmSearch.po" method="post">
         			<div class="search_wrap">
         			<div class="searchselect">
 		        		<select id="date">
@@ -51,22 +51,26 @@
 		        			<option value="onlytitle">제목만</option>
 		        			<option value="writer">작성자</option>
 		        		</select>
-        				<input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox">
-        				&nbsp;
+        				<input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox" name="textbox">
+        				<input type="hidden" size=20 placeholder="검색할 내용을 입력하세요" class="textbox" name="textbox">
         				<input type="submit" value="검색" class="find">
+        				<input type="hidden" value="검색" class="find" name="find">
         			</div>
         			</div>
-        			</form>
+        		</form>
         		<div class="array_wrap">
         			<hr id="hr2">
         			<select>
         				<option>최신순</option>
         				<option>추천순</option>
         			</select>
+        			<div class="switch_wrap">
         			<label class="switch">
 					  <input type="checkbox">
 					  <span class="slider round"></span><br>
+					  <br>
 					</label>
+					</div>
         		</div>
      	<div class="cmcontent">
      		<div class="cm_wrap">
@@ -103,8 +107,8 @@
 	  						<div class="commen"><label class="cwriter">댓글쓴</label><label>댓글댓글</label></div>
 	  						</div>
 	  						<div class="likecount">
-	  						<img src="<%=request.getContextPath()%>/images/heart.png">&nbsp;32 &nbsp;&nbsp;
-	  						<img src="<%=request.getContextPath()%>/images/like.png">&nbsp;100
+	  						<img src="<%=request.getContextPath()%>/image/heart.png">&nbsp;32 &nbsp;&nbsp;
+	  						<img src="<%=request.getContextPath()%>/image/like.png">&nbsp;100
 	  					</div>
 	     			</div>
      				<%
@@ -112,9 +116,8 @@
      				}
      				%> 
      				</div>
-	     			<div class="writebtn" onclick="location.href='views/community/cmpostWrite.jsp'"><a>글쓰기</a></div>
+	     			<div class="wbtn_wrap"><div class="wbtn"><img src="<%=request.getContextPath()%>/image/연필.png" id="pencil">글쓰기</div></div>
 	     		</div>
-	     		
 	     			<!-- 페이징 -->
 	     		<div class="pagingArea" align="center">
 	     		<% if(!dlist.isEmpty()) { %>
@@ -146,32 +149,14 @@
 			<button onclick="location.href='<%= request.getContextPath() %>/cmdlist.po?&currentPage=<%=maxPage %>'">&gt;&gt;</button>
 		<% } %>
 	     		</div>
-	     		
-	     		
-	     		
-	     		<div class="searchselect" style="margin:30px;">
-		        		<select>
-		        			<option value="all" selected>전체기간</option>
-		        			<option value="1day">1일</option>
-		        			<option value="1week">1주</option>
-		        			<option value="1month">1달</option>
-		        		</select>
-		        		<select>
-		        			<option value="title+content" selected>제목+내용</option>
-		        			<option value="onlytitle">제목만</option>
-		        			<option value="writer">작성자</option>
-		        		</select>
-        				<input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox">
-        				&nbsp;
-        				<input type="submit" value="검색" class="find">
-        				<label class="switch">
-					  	<input type="checkbox">
-					  	<span class="slider round"></span><br>
-						</label>
-        		</div>
 	     	</div>
+	     	</div>
+	     	</section>
      	</div>
-				<script>
+			</div>
+			<footer>from.hoseong</footer>
+		</div>
+		<script>
 				$(function(){
 					$('.boardcontent div').mouseenter(function(){
 						$(this).parent().css({'background':'#EAEAEA','cursor':'pointer'});
@@ -186,11 +171,20 @@
 				check.click(function(){
 					$('.boardopen').slideToggle();
 				});
+				
+				var text = $("input[type='text']");
+				var btn = $("input[type='submit']");
+				
+				btn.click(function(){
+					if(text.val() == ""){
+						alert('검색어를 입력해주세요');
+						return false;
+					}
+					return true;
+				});
+				 $('.wbtn').click(function(){
+			        	location.href="<%= request.getContextPath() %>/views/community/cmpostWrite.jsp?cnum=2";
+			         });
 				</script>
-				</section>
-			</div>
-			<footer>from.hoseong</footer>
-		</div>
-	</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
+	int cnum = Integer.parseInt(request.getParameter("cnum"));
 %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,8 @@
 <title>Insert title here</title>
 </head>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/postWrite.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/cmpostWrite.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myUltary/postWrite.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -44,7 +46,7 @@
 						<hr>
 						<div id="sAdd">
 							<label>카테고리 설정&nbsp;&nbsp;| </label>
-							<select name="categorynum">
+							<select name="categorynum" id="categorynum">
 								<option value="2" selected>펫일상</option>
 								<option value="3">펫지식</option>
 								<option value="4">펫리뷰</option>
@@ -96,6 +98,13 @@
 		$("#media4").click(function(){
 			$("#Img4").click();
 		});
+		
+		switch(<%= cnum %>){
+		case 3: $('#categorynum option:eq(1)').prop("selected",true);break;
+		case 4: $('#categorynum option:eq(2)').prop("selected",true);break;
+		case 5: $('#categorynum option:eq(3)').prop("selected",true);break;
+		}
+		
 	});
 	function LoadImg(value, num){
 		if(value.files && value.files[0]){
