@@ -3,8 +3,7 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String msg = (String)request.getAttribute("msg");
-	String absroute = request.getContextPath();
-%> 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,221 @@
     <script src="https://han3283.cafe24.com/js/lightslider/js/lightslider.js"></script>
 </head>
 <body>
-	<%@ include file="alertchat.jsp" %>
+	<div class="alert">
+		<div id="alerttitle">전체알림</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div class="alertcontentdiv">
+			<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+			<div class="alertclose">&nbsp;&nbsp;X</div>
+		</div>
+		<div id="alertspace"></div>
+	</div>
+<script>
+	$("body").click(function(e){
+		if($('.alert').css('display') == 'block'){
+			if(!$('.alert').has(e.target).length) {
+				$('.alert').hide();
+			}
+		} else if($('.alert').css('display') == 'none'){
+			if($('#alertbuttondiv').has(e.target).length) {
+				$('.alert').show();
+			}
+		}
+	});
+</script>
+	<div id="chatdiv">
+		<div id="chatdivleft">
+			<div id="chatdivleft1">
+				<img id="individualtalk" src="<%= request.getContextPath() %>/image/갠톡.png">
+			</div>
+			<div id="chatdivleft2">
+				<img id="grouptalk" src="<%= request.getContextPath() %>/image/단체톡.png">
+			</div>
+		</div>
+		<div id="chatdivright">
+			<div id="chattitle">울타리 톡</div>
+			<div id="chatsearch">
+				<div id="chatsearchdiv">
+					<img id="chatsearchimg" src="<%= request.getContextPath() %>/image/검색.png">
+					<input id="chatsearchtext" type="search" placeholder="검색할 회원이나 채팅방을 입력해주세요.">
+				</div>
+			</div>
+			<div class="chatcontent">
+				<div class="chatcontentprofile">
+					<div class="chatcontentprofileimg">
+						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
+					</div>
+					<div class="chatcontentprofilename">
+						닉네임
+					</div>
+				</div>
+				<div class="chatcontentright">
+					<div class="chatcontentrightL">
+						<div class="chatcontent1">대화내용1</div>
+						<div class="chatcontent2">대화내용2</div>
+						<div class="chatcontent3">대화내용3</div>
+					</div>
+					<div class="chatcontentrightR">
+						<div class="chatcontentnum">5</div>
+						<div class="chatcontentfix">☆</div>
+					</div>
+				</div>
+			</div>
+			<div class="chatcontent">
+				<div class="chatcontentprofile">
+					<div class="chatcontentprofileimg">
+						<img class="chatcontentimg" src="image/프로필.png">
+					</div>
+					<div class="chatcontentprofilename">
+						닉네임
+					</div>
+				</div>
+				<div class="chatcontentright">
+					<div class="chatcontentrightL">
+						<div class="chatcontent1">대화내용1</div>
+						<div class="chatcontent2">대화내용2</div>
+						<div class="chatcontent3">대화내용3</div>
+					</div>
+					<div class="chatcontentrightR">
+						<div class="chatcontentnum">5</div>
+						<div class="chatcontentfix">☆</div>
+					</div>
+				</div>
+			</div>
+			<div class="chatcontent">
+				<div class="chatcontentprofile">
+					<div class="chatcontentprofileimg">
+						<img class="chatcontentimg" src="image/프로필.png">
+					</div>
+					<div class="chatcontentprofilename">
+						닉네임
+					</div>
+				</div>
+				<div class="chatcontentright">
+					<div class="chatcontentrightL">
+						<div class="chatcontent1">대화내용1</div>
+						<div class="chatcontent2">대화내용2</div>
+						<div class="chatcontent3">대화내용3</div>
+					</div>
+					<div class="chatcontentrightR">
+						<div class="chatcontentnum">5</div>
+						<div class="chatcontentfix">☆</div>
+					</div>
+				</div>
+			</div>
+			<div class="chatcontent">
+				<div class="chatcontentprofile">
+					<div class="chatcontentprofileimg">
+						<img class="chatcontentimg" src="image/프로필.png">
+					</div>
+					<div class="chatcontentprofilename">
+						닉네임
+					</div>
+				</div>
+				<div class="chatcontentright">
+					<div class="chatcontentrightL">
+						<div class="chatcontent1">대화내용1</div>
+						<div class="chatcontent2">대화내용2</div>
+						<div class="chatcontent3">대화내용3</div>
+					</div>
+					<div class="chatcontentrightR">
+						<div class="chatcontentnum">5</div>
+						<div class="chatcontentfix">☆</div>
+					</div>
+				</div>
+			</div>
+			<div class="chatcontent">
+				<div class="chatcontentprofile">
+					<div class="chatcontentprofileimg">
+						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
+					</div>
+					<div class="chatcontentprofilename">
+						닉네임
+					</div>
+				</div>
+				<div class="chatcontentright">
+					<div class="chatcontentrightL">
+						<div class="chatcontent1">대화내용1</div>
+						<div class="chatcontent2">대화내용2</div>
+						<div class="chatcontent3">대화내용3</div>
+					</div>
+					<div class="chatcontentrightR">
+						<div class="chatcontentnum">5</div>
+						<div class="chatcontentfix">☆</div>
+					</div>
+				</div>
+			</div>
+			<div class="chatcontent">
+				<div class="chatcontentprofile">
+					<div class="chatcontentprofileimg">
+						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
+					</div>
+					<div class="chatcontentprofilename">
+						닉네임
+					</div>
+				</div>
+				<div class="chatcontentright">
+					<div class="chatcontentrightL">
+						<div class="chatcontent1">대화내용1</div>
+						<div class="chatcontent2">대화내용2</div>
+						<div class="chatcontent3">대화내용3</div>
+					</div>
+					<div class="chatcontentrightR">
+						<div class="chatcontentnum">5</div>
+						<div class="chatcontentfix">☆</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+	$("body").click(function(e){
+		if($('#chatdiv').css('display') == 'block'){
+			if(!$('#chatdiv').has(e.target).length) {
+				$('#chatdiv').hide();
+			}
+		} else if($('#chatdiv').css('display') == 'none'){
+			if($('#chatbtn').has(e.target).length) {
+				$('#chatdiv').show();
+			}
+		}
+	});
+</script>
 	<div id="expansion">
 		<div id="expansionIn">
 			<div id="expansiontop">
@@ -132,20 +345,47 @@
 								<li><a>내 위탁환경</a></li>
 							</ul>
 						</li>
+<script>
+	<% if((loginUser) == null){ %>
+	$('#cssmenu>ul a').click(function(){
+		window.alert('로그인을 해주세요.');
+	});
+	<% } else{ %>
+	$('#cssmenu>ul>li:eq(0)>a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myUltary/ultaryMain.jsp";
+	});
+	$('#menu1>li:eq(0) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myUltary/ultaryMain.jsp";
+	});
+	$('#menu1>li:eq(1) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp";
+	});
+	$('#menu1>li:eq(2) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myUltary/markMember.jsp";
+	});
+	$('#menu1>li:eq(3) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myUltary/markPost.jsp";
+	});
+	$('#menu1>li:eq(4) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
+	});
+	<% } %>
+</script>
+						
 						<li>
-							<a>커뮤니티</a>
+							<a href='#'>커뮤니티</a>
 							<ul id="menu2">
-								<li><a>공지사항</a></li>
-								<li><a>모아보기</a></li>
-								<li><a>펫일상</a></li>
-								<li><a>펫지식</a></li>
-								<li><a>펫리뷰</a></li>
-								<li><a>펫분양</a></li>
+								<li><a href='#'>공지사항</a></li>
+								<li><a href='#'>모아보기</a></li>
+								<li><a href='#'>펫일상</a></li>
+								<li><a href='#'>펫지식</a></li>
+								<li><a href='#'>펫리뷰</a></li>
+								<li><a href='#'>펫분양</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href='<%= request.getContextPath() %>/views/common/commonheader.jsp'>위탁검색</a></li>
+								<li><a href='#'>위탁검색</a></li>
 								<li><a href='#'>의뢰 관리</a></li>
 								<li><a href='#'>내가 남긴 리뷰</a></li>
 							</ul>
@@ -168,71 +408,6 @@
 				</div>
 		</div>
 	</header>
-<script>
-	<% if((loginUser) == null){ %>
-	$('#cssmenu>ul a').click(function(){
-		window.alert('로그인을 해주세요.');
-	});
-	<% } else{ %>
-	$('#cssmenu>ul>li:eq(0)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/post.tl";
-	});
-	$('#menu1>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/post.tl";
-	});
-	$('#menu1>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp";
-	});
-	$('#menu1>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/markmember.mem";
-	});
-	$('#menu1>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/markPost.jsp";
-	});
-	$('#menu1>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
-	});
-	$('#cssmenu>ul>li:eq(1)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmnotice.po";
-	});
-	$('#menu2>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmnotice.po";
-	});
-	$('#menu2>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmAllList.po";
-	});
-	$('#menu2>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmdlist.po";
-	});
-	$('#menu2>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmklist.po";
-	});
-	$('#menu2>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmrlist.po";
-	});
-	$('#menu2>li:eq(5) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmrelist.po";
-	});
-	$('#cssmenu>ul>li:eq(2)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
-	});
-	$('#menu3>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
-	});
-	$('#cssmenu>ul>li:eq(4)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no";
-	});
-	$('#menu5>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no";
-	});
-	$('#menu5>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/faq.sv";
-	});
-	$('#menu5>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/support/InquirySend.jsp";
-	});
-	<% } %>
-</script>
 	
 	<section>
 		<div id="mainleft">
