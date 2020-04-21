@@ -24,17 +24,22 @@ public class Member {
 	private char status; // 회원상태
 	
 	public Member() {}
-	
-	
+
+	//아이디 찾기에 쓰임
+	public Member(String memberId) {
+		super();
+		this.memberId = memberId;
+	}
+
+	//로그인할때 받는 기본 정보 (아이디, 비번)
 	public Member(String memberId, String password) {
 		super();
 		this.memberId = memberId;
 		this.password = password;
 	}
-
-	public Member(String memberId, String nickname, String memberName, char gender, String birth, String email,
-			String phone, Date enrollDate, String address, char trust, int trustmeans, String trustfield,
-			String trustAdd, int markscore, char warn, char status) {
+	
+	// 네이버에서 받아오는 정보 (이름, 아이디, 이메일, 닉네임, 성별, 생일)
+	public Member(String memberId, String nickname, String memberName, String birth, char gender, String email) {
 		super();
 		this.memberId = memberId;
 		this.nickname = nickname;
@@ -42,19 +47,9 @@ public class Member {
 		this.gender = gender;
 		this.birth = birth;
 		this.email = email;
-		this.phone = phone;
-		this.enrollDate = enrollDate;
-		this.address = address;
-		this.trust = trust;
-		this.trustmeans = trustmeans;
-		this.trustfield = trustfield;
-		this.trustAdd = trustAdd;
-		this.markscore = markscore;
-		this.warn = warn;
-		this.status = status;
 	}
-
-
+	
+	//회원가입시 받는 정보
 	public Member(String memberId, String nickname, String memberName, String password, char gender, String birth,
 			String email, String phone, String address, int pwQuery, String pwqAns, char trust, int trustmeans,
 			String trustfield, String trustAdd) {
@@ -75,9 +70,11 @@ public class Member {
 		this.trustfield = trustfield;
 		this.trustAdd = trustAdd;
 	}
+	
+	
 	public Member(String memberId, String nickname, String memberName, String password, char gender, String birth,
-			String email, String phone, Date enrollDate, String address, int pwQuery, String pwqAns, char trust,
-			int turstmeans, String trustfield, String trustAdd, int markscore, char warn, char status) {
+			String email, String phone, Date enrollDate, String address, int pwQuery, String pwqAns, char trust, int turstmeans,
+			String trustfield, String trustAdd, int markscore, char warn, char status) {
 		super();
 		this.memberId = memberId;
 		this.nickname = nickname;
@@ -204,15 +201,13 @@ public class Member {
 		this.trust = trust;
 	}
 
-	public int getTrustmeans() {
+	public int getTurstmeans() {
 		return trustmeans;
 	}
 
-
-	public void setTrustmeans(int trustmeans) {
-		this.trustmeans = trustmeans;
+	public void setTurstmeans(int turstmeans) {
+		this.trustmeans = turstmeans;
 	}
-
 
 	public String getTrustfield() {
 		return trustfield;
