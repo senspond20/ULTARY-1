@@ -53,26 +53,31 @@ public class InquirySearchServlet extends HttpServlet {
 		} else {
 			currentPage = 1;
 		}
-
+		
 		// 2. 검색필터 체크/ 검색개수 가져오기
 		String option = request.getParameter("option");
 		String search = request.getParameter("search");
 		String check = request.getParameter("check");
-
-		System.out.println(option);
-		System.out.println(search);
-		System.out.println(check);
 		
 		ArrayList<Inquiry> list = null;
-		if (option == null && search == null && check == null) {
-			listCount = service.selectList().size();
-			list = service.selectList(currentPage, boardLimit);
-			System.out.println(listCount);
-		} else {
+		
+		  
+		  if(option == null) { option = "A"; } if(search == null) { search = "";
+		  
+		  }if(check == null) { check = "N"; }
+		  
+//		  
+//		if (option != null && search != null && check != null) { 
+//			
 			listCount = service.selectFilter(option, search, check).size();
 			list = service.selectList(option, search, check, currentPage, boardLimit);	
-			System.out.println(listCount);
-		}
+			//System.out.println(listCount);
+			
+//		} else {		
+//			listCount = service.selectList().size();
+//			list = service.selectList(currentPage, boardLimit);
+//			//System.out.println(listCount);
+//		}
 
 		maxPage = (int) ((double) listCount / boardLimit + 0.9);
 		startPage = (((int) ((double) currentPage / pageLimit + 0.9) - 1)) * pageLimit + 1;
@@ -81,12 +86,12 @@ public class InquirySearchServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage,
-				boardLimit);
+		PageInfo pi = new PageInfo
+		(currentPage, listCount, pageLimit, maxPage, startPage, endPage,boardLimit);
 		
 		String page = null;
 		if (list != null) {
-			page = "views/support/InquiryListView.jsp";
+			page = "views/support/InquiryListView3.jsp";
 
 			request.setAttribute("list", list);
 			request.setAttribute("pi",pi);
