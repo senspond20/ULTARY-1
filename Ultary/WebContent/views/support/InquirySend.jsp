@@ -81,7 +81,7 @@
        
         <form action ="<%= request.getContextPath() %>/list.inq">
          <% if (loginUser != null && loginUser.getMemberId().equals("admin")) { %>
-			<button id="reply">문의글 답변하기</button>
+			<button id="reply">문의글 답변하기(관리자용)</button>
 				<% } %>
 		 </form>
 	

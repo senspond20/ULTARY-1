@@ -59,7 +59,7 @@ private Properties prop = new Properties();
 	
 	public ArrayList<Inquiry> selectList(Connection conn) {
 		
-		String query= "select * from inquiry";
+		String query= "select * from inquiry ORDER BY INQUIRYNUM DESC";
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Inquiry> list = null;
@@ -129,14 +129,14 @@ private Properties prop = new Properties();
 		String keyword = "%" + search + "%";
 		String checkYN = "N";
 		
-		if(check !=null) {
+		if(!check.equals("N")) {
 			checkYN = "Y";
 		}
 		
 		if(option.equals("A")) {
-			query = "SELECT * FROM INQUIRY WHERE INQUIRYTITLE || INQUIRYCONTENT LIKE(?) AND ANSWER = ?";
+			query = "SELECT * FROM INQUIRY WHERE INQUIRYTITLE || INQUIRYCONTENT LIKE(?) AND ANSWER = ? ORDER BY INQUIRYNUM DESC";
 		}else if(option.equals("U")) {
-			query = "SELECT * FROM INQUIRY WHERE MEMBERID LIKE(?) AND ANSWER = ?";
+			query = "SELECT * FROM INQUIRY WHERE MEMBERID LIKE(?) AND ANSWER = ? ORDER BY INQUIRYNUM DESC";
 		}
 		
 		PreparedStatement pstmt = null;
@@ -213,22 +213,32 @@ private Properties prop = new Properties();
 
 		return list;
 	}
+/*
+	SELECT INQUIRYNUM, INQUIRYTITLE, INQUIRYCONTENT,INQUIRYDATE, ANSWER, ANSWERDATE, ANS_CONTENT,MEMBERID 
+	FROM(SELECT ROWNUM R, INQUIRYNUM, INQUIRYTITLE, INQUIRYCONTENT,INQUIRYDATE, ANSWER, ANSWERDATE, ANS_CONTENT,MEMBERID FROM INQUIRY ORDER BY INQUIRYNUM DESC)
+	WHERE (R BETWEEN 1 AND 150) AND INQUIRYTITLE || INQUIRYCONTENT LIKE('%14%') AND ANSWER = 'N';
+	오라클에서 이렇게 넣어도 나오는데 JBDC에서 데이터를 제대로 못가져온다. -> 먼가 잘몬된 쿼리
 
-	public ArrayList<Inquiry> selectList
-	(Connection conn, String option, String search, String check, int currentPage,int boardLimit) {
+	SELECT INQUIRYNUM, INQUIRYTITLE, INQUIRYCONTENT,INQUIRYDATE, ANSWER, ANSWERDATE, ANS_CONTENT,MEMBERID FROM
+	(SELECT ROWNUM R, INQUIRYNUM, INQUIRYTITLE, INQUIRYCONTENT,INQUIRYDATE, ANSWER, ANSWERDATE, ANS_CONTENT,MEMBERID FROM(
+	SELECT * FROM INQUIRY WHERE INQUIRYTITLE || INQUIRYCONTENT LIKE('%14%') AND ANSWER = 'N' ORDER BY INQUIRYNUM DESC))
+	WHERE R BETWEEN 1 AND 150;
+	제대로 나온다.
+	
+*/
+	public ArrayList<Inquiry> selectList(Connection conn, String option, String search, String check, int currentPage,int boardLimit) {
 		
 		String keyword = "%" + search + "%";
+		//System.out.println(keyword);
 		String checkYN = "N";
 		
-		if(check !=null) {
+		if(!check.equals("N")) {
 			checkYN = "Y";
 		}
 		
 		String query = prop.getProperty("selectListFP");
-		if(option.equals("A")) {
-			query = query.replace("WHERECONDITION", "INQUIRYTITLE || INQUIRYCONTENT");
-		}else if(option.equals("U")) {
-			query = query.replace("WHERECONDITION", "MEMBERID");
+		if(option.equals("U")) {
+			query = query.replace("INQUIRYTITLE || INQUIRYCONTENT", "MEMBERID");
 		}
 		
 		
@@ -241,10 +251,11 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3,keyword);
-			pstmt.setString(4, checkYN);
+			pstmt.setString(1,keyword);
+			pstmt.setString(2, checkYN);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+		
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Inquiry>();
@@ -259,7 +270,8 @@ private Properties prop = new Properties();
 								rset.getDate("ANSWERDATE"),
 								rset.getString("ANS_CONTENT"),
 								rset.getString("MEMBERID"));
-				list.add(i);					
+				list.add(i);	
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

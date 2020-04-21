@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, admin.model.vo.Inquiry"%>
+	import="java.util.ArrayList, admin.model.vo.*"%>
 <%
 	ArrayList<Inquiry> list = (ArrayList<Inquiry>) request.getAttribute("list");
+
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	
+	String option = (String) request.getAttribute("option");
+	String search = (String) request.getAttribute("search");
+    String check = (String) request.getAttribute("check");
+	//int listCount = (int) request.getAttribute("listCount");
+	
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
-<%
-	/*
-	private int inquirynum; // 문의 번호
-	private String inquirytitle; // 문의 제목
-	private String inquirycontent; // 문의 내용
-	private Date inquirydate; // 문의 날짜
-	private char answer;  // 답변 여부
-	private Date answerdate; // 답변 날짜
-	private String ans_content; // 답변 내용
-	private String memeberid; // 회원 아이디
-	*/
-%>
+
 
 
 <!DOCTYPE html>
@@ -25,7 +26,8 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/support.css">
 <style>
 li {
 	list-style: none;
@@ -160,6 +162,7 @@ input:checked+.slider:before {
 			<%@ include file ="/views/common/sp_nav.jsp" %>
 			<div id="asidesection">
 			<%@ include file ="/views/common/sp_aside.jsp" %>
+
 				<!-- 내용 들어갈 영역 -->
 				<section id="content">
 
@@ -171,7 +174,7 @@ input:checked+.slider:before {
 
 						<!-- 검색영역 -->
 						<div id="searchArea">
-							<form action = "<%=request.getContextPath()%>/search.inq">
+							<form action = "<%=request.getContextPath()%>/list.inq">
 								<select id='selSearchOption' name="option">
 									<option value='A'>제목+내용</option>
 									<option value='U'>아이디</option>
@@ -193,7 +196,7 @@ input:checked+.slider:before {
 									<th scope="cols" width="50px">번호</th>
 									<th scope="cols" width="300px">제목</th>
 									<th scope="cols" width="100px">문의날짜</th>
-									<th scope="cols" width="50px">답변여부</th>
+									<th scope="cols" width="80px">답변여부</th>
 									<th scope="cols" width="100px">답변날짜</th>
 									<th scope="cols" width="80px">아이디</th>
 								</tr>
@@ -253,20 +256,76 @@ input:checked+.slider:before {
 								%>
 							</tbody>
 						</table>
-
+					</div>
+					
+					<!-- 페이징 -->
+					<div class="pagingArea" align="center">
+						<%
+							if (!list.isEmpty()) {
+						%>
+						<!-- 맨 처음으로 -->
+						<button onclick="location.href='<%=request.getContextPath()%>/list.inq?currentPage=1&option=<%=option%>&search=<%=search%>&check=<%=check%>'">&lt;&lt;</button>
+	
+						<!-- 이전 페이지로 -->
+						<button
+							onclick="location.href='<%=request.getContextPath()%>/list.inq?currentPage=<%=currentPage - 1%>&option=<%=option%>&search=<%=search%>&check=<%=check%>'"
+							id="beforeBtn">&lt;</button>
+						<script>
+							if (
+						<%=currentPage%>
+							<= 1) {
+								$('#beforeBtn')
+										.attr('disabled', 'true');
+							}
+						</script>
+	
+						<!-- 10개 페이지 목록 -->
+						<%
+							for (int p = startPage; p <= endPage; p++) {
+						%>
+						<%
+							if (p == currentPage) {
+						%>
+						<button id="choosen" disabled><%=p%></button>
+						<%
+							} else {
+						%>
+						<button id="numBtn"
+							onclick="location.href='<%=request.getContextPath()%>/list.inq?currentPage=<%=p%>&option=<%=option%>&search=<%=search%>&check=<%=check%>'"><%=p%></button>
+						<%
+							}
+						%>
+						<%
+							}
+						%>
+	
+						<!-- 다음 페이지로 -->
+						<button id="afterBtn"
+							onclick="location.href='<%=request.getContextPath()%>/list.inq?currentPage=<%=currentPage + 1%>&option=<%=option%>&search=<%=search%>&check=<%=check%>'">&gt;</button>
+						<script>
+							if (
+						<%=currentPage%>
+							>=
+						<%=maxPage%>
+							) {
+								$('#afterBtn').attr('disabled', 'true');
+							}
+						</script>
+	
+						<!-- 맨 끝으로 -->
+						<button onclick="location.href='<%=request.getContextPath()%>/list.inq?currentPage=<%=maxPage%>&option=<%=option%>&search=<%=search%>&check=<%=check%>'
+							
+							">&gt;&gt;</button>
+						<%
+							}
+						%>
 					</div>
 
 				</section>
+			</div>
+		</div>
+	</div>
 	<script>
-	
-		function gosubmit(){
-			
-			var name = document.getElementsByName("answer");
-			
-		}
-		function cancel() {
-
-		}
 		$(function() {
 			$('.mcon td').mouseenter(function() {
 				$(this).parent().css({
@@ -296,9 +355,6 @@ input:checked+.slider:before {
 		});
 	</script>
 
-		</div>
-			<footer>from.hoseong</footer>
-		</div>
-	</div>
+
 </body>
 </html>
