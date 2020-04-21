@@ -119,7 +119,7 @@ button:hover {
 }
 
 .admin {
-	
+	display: inline;
 }
 </style>
 </head>
@@ -138,7 +138,6 @@ button:hover {
 
 						<br> <br>
 						<ul>
-
 
 							<div class="outer">
 								<img src="image/support/notice4.png">
@@ -265,7 +264,7 @@ button:hover {
 
 
 							<br>
-
+			
 
 							<!-- 검색 폼 영역 -->
 							<li id='liSearchOption'>
@@ -276,6 +275,22 @@ button:hover {
 										<option value='C'>내용</option>
 									</select> <input id='txtKeyWord' name="search" /> <input type="submit"
 										value='검색' />
+									
+									<div class="admin" align="center">
+
+										<%
+											if (loginUser != null && loginUser.getMemberId().equals("admin")) {
+										%>
+										<button onclick="location.href='views/support/noticeInsertForm.jsp'"
+											id="writeNoBtn">글쓰기(관리자용)</button>
+										<%
+											} else {
+										%>
+						
+										<%
+											}
+										%>
+									</div>
 								</form>
 
 
@@ -284,22 +299,7 @@ button:hover {
 					</div>
 				</section>
 			</div>
-			<div class="admin" align="center">
 
-				<%
-					if (loginUser != null && loginUser.getMemberId().equals("admin")) {
-				%>
-				<button onclick="location.href='views/support/noticeInsertForm.jsp'"
-					id="writeNoBtn">글쓰기(admin으로 접속시만)</button>
-				<%
-					} else {
-				%>
-
-				<%
-					}
-				%>
-
-			</div>
 		</div>
 
 

@@ -348,7 +348,7 @@ public class NoticeDAO {
 		ResultSet rset = null;
 		int result = 0;
 		String query = prop.getProperty("getListCountFilter");
-
+	
 		if (option.equals("T")) {
 			query = query.replace("N_TITLE || N_CONTENT", "N_TITLE");
 		} else if (option.equals("C")) {
