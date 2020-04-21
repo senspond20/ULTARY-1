@@ -8,6 +8,6 @@
 </head>
 <body>
 	<%@ include file="views/main/main.jsp" %>
-	ZZ
+	
 </body>
 </html>

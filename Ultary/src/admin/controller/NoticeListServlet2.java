@@ -76,8 +76,8 @@ public class NoticeListServlet2 extends HttpServlet {
 			endPage = maxPage;
 		}
 
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage,
-				boardLimit);
+		PageInfo pi = new PageInfo
+				(currentPage, listCount, pageLimit, maxPage, startPage, endPage,boardLimit);
 
 		String page = null;
 		if (list != null) {
