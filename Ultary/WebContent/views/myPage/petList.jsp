@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<Pet> loginPet = (ArrayList<Pet>)session.getAttribute("loginPet");
+	ArrayList<Media> loginMedia = (ArrayList<Media>)session.getAttribute("loginMedia");
+	String petkind = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -38,22 +41,20 @@ $("#self").change(function() {
 <style>
 .text{font-family: 'Nanum Gothic Coding', monospace;}
 
-	#mypage{
-		width:900px;
-		height:1500px;
-	}
 	
-	#myForm2{border: 1px solid hsla(197, 62%, 74%, 0.603); border-width: 20px; background: white; margin: 20px;}
+	#myForm2{border: 1px solid hsla(197, 62%, 74%, 0.603); border-width: 20px; background: white; margin: 20px;overflow:hidden;}
 	
 	
 	table { margin-left: auto; margin-right: auto;
  		    border-spacing: 20px;
  		    border-collapse: separate;
+ 		    border-right: 1px solid gray;
  		    
 }
 
-	#petplus{
-		width: 140px;
+	#pp{
+		float: right;
+		width: 80px;
 		box-shadow: 0px 1px 0px 0px #f0f7fa;
 		background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
 		background-color:#33bdef;
@@ -69,11 +70,43 @@ $("#self").change(function() {
 		text-decoration:none;
 		text-shadow:0px -1px 0px #5b6178;
 		}
-		#petplus:hover{
+		#pp:hover{
 		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
 		background-color:#019ad2;
 		}
-		#petplus:active {
+		#pp:active {
+		position:relative;
+		top:1px;
+		}
+			
+		input:focus {
+	    outline: none;
+		}
+		
+		
+		#pd{
+		float: right;
+		width: 80px;
+		box-shadow: 0px 1px 0px 0px #f0f7fa;
+		background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+		background-color:#33bdef;
+		border-radius:6px;
+		border:1px solid #057fd0;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:14px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:0px -1px 0px #5b6178;
+		}
+		#pd:hover{
+		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+		background-color:#019ad2;
+		}
+		#pd:active {
 		position:relative;
 		top:1px;
 		}
@@ -81,7 +114,7 @@ $("#self").change(function() {
 		input:focus {
 	    outline: none;
 		}
-		
+	
 	#retoch{
 		width: 140px;
 		box-shadow: 0px 1px 0px 0px #f0f7fa;
@@ -121,81 +154,79 @@ $("#self").change(function() {
 </style>
 </head>
 <body>
-	<div id="mypage">
-		<form id="myForm2" action="<%= request.getContextPath() %>/insert.pet" method="post" encType="multipart/form-data">
+	<div id="myForm2">
 		<center><h2>반려동물 정보</h2></center>
-	<table>
-		<tr>
-			<th>프로필  사진</th>
-			<td>
-				<input type=file name='file1' style='display: none;' id="petFileImg" multiple="multiple" onchange="LoadImg(this,1)">  
-				<img src='<%= request.getContextPath() %>/image/catprofile.png' border='0' class="fileInput" id="basicImg" width="400px" height="240px" style='cursor:pointer;'>
-				<img border='0' id="inputImg" width="400px" height="240px" class="fileInput" style='cursor:pointer;'>
-				<!-- <div id=petFileImgDiv></div> -->
-				<!-- <input type="file" id="petFileImg" multiple="multiple" name="petFileImg" onchange="LoadImg(this,1)"> -->
-				<script>
-					// 내용 작성 부분의 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
-					$(function(){
-						/* 
-						
-						$("#mypage").click(function(){
-							$("#petFileImg").click();
-						}); */
-						$("#inputImg").hide();
-						$('.fileInput').click(function(){
-							$("#petFileImg").click();
-						});
-					});
-					
-					// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
-					function LoadImg(value, num){
-						if(value.files && value.files[0]){
-							var reader = new FileReader();
-							
-							reader.onload = function(e){								
-									$("#inputImg").attr("src", e.target.result);
-									$("#inputImg").show();
-									$("#basicImg").hide();
-								}
-							
-							reader.readAsDataURL(value.files[0]);
-						}
-					}
-				</script>
-			</td>
-		</tr>
-		<tr>
-			<th>반려동물 이름</th>
-			<td><input type="text" name="petname" id="petname" placeholder="이름을 입력해주세요"></td>
-		</tr>
-		<tr>
-			<th>반려동물 종류</th>
-			<td>		
-			<select id="petkind" name="petkind" class="text" placeholder="반려동물" style="height: 25px;">
-								<option value="1">강아지</option>
-								<option value="2">고양이</option>
-								<option value="3">설치류</option>
-								<option value="4">파충류</option>
-								<option value="5">조류</option>	
-								<option value="6">어류</option>
-								<option value="7">기타</option>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<th>성별 </th>
-			<td><input type="radio" name="petgender" id="gender">여자
-				<input type="radio" name="petgender" id="gender">남자
-			</td>
-		</tr>
-		<tr>
-			<th>나이</th>
-			<td><input type="number" name="petage" id="petage" style="width: 50px;"></td>
-		</tr>
+		<% for(int i=0;i<loginPet.size();i++){ 
+			Pet p = loginPet.get(i);
+			switch(p.getPetKind()){
+			case '1': petkind="강아지"; break;
+			case '2':	petkind="고양이"; break;
+			case '3':	petkind="설치류"; break;
+			case '4':	petkind="파충류"; break;
+			case '5':	petkind="조류"; break;
+			case '6':	petkind="어류"; break;
+			case '7':	petkind="기타"; break;
+			} %>
+			<% for(int j=0;j<loginMedia.size();j++){
+				Media m = loginMedia.get(j); %>
+				<% if(p.getPetNum() == m.getPetNum()){ %>
+			<table class="petone">
+				<tr>
+					<th>프로필  사진</th>
+					<td>
+						<img src='<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>' border='0' class="fileInput" id="basicImg" width="200px" height="126px" style='cursor:pointer;'>
+					</td>
+				</tr>
+				<tr>
+					<th>반려동물 이름</th>
+					<td><%= p.getPetName() %></td>
+				</tr>
+				<tr>
+					<th>반려동물 종류</th>
+					<td>
+						<%= petkind %>
+					</td>
+				</tr>
+				<tr>
+					<th>성별</th>
+					<td>
+						<%= p.getPetGender() %>
+					</td>
+				</tr>
+				<tr>
+					<th>나이</th>
+					<td>
+						<%= p.getPetage() %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" id="pd" style="cursor:pointer;" value="삭제">
+						<input type="button" id="pp" style="cursor:pointer;" value="수정">
+					</td>		
+				</tr>
+			</table>
+				<% } %>
+			<% } %>
+		<% } %>
+		<script>
+			var pp = $('#pp'); // 수정버튼
+			var pd = $('#pd'); // 삭제버튼
+			
+			function pp(){ // 수정버튼
+				
+				if(pp > 0){
+					return true;
+				}
+			}
 		
-	</table>
-	<center><input id="retoch" type="submit" value="수정저장" style='cursor:pointer;'></button></center>
-	</form>
+			function pd(){ // 삭제버튼
+				
+			}
+		
+		
+	
+		</script>
 	</div>
 </body>
 </html>
