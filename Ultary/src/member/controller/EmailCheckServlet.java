@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.service.MemberService;
 
 /**
- * Servlet implementation class IdCheckServlet
+ * Servlet implementation class EmailServlet
  */
-@WebServlet("/idCheck.mem")
-public class IdCheckServlet extends HttpServlet {
+@WebServlet("/email.mem")
+public class EmailCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdCheckServlet() {
+    public EmailCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,33 +30,29 @@ public class IdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String userId = request.getParameter("inputId");
-		String userId = request.getParameter("userId");
+		//아이디와 이메일정보를 받아온다.
+		//(기존회원 확인)
+		//이메일값이 이미 있으면 가입할 수 없다. => 인증메일 발송 불가
+		//이메일이 없으면 가입할 수 있다. => 인증메일 발송 가능
 		
-		//사용중인지 확인하려 디비로 보내기
-		int result =new MemberService().idCheck(userId);
-	
-		//새창 띄워서 바꾸는거 아니니 주석	
-//		request.setAttribute("result", result);
-//		request.setAttribute("checkedId", userId); //내가 방금 넘겨받은 아이디다 라고 알려주는것.
-//		
-//		RequestDispatcher view = request.getRequestDispatcher("views/member/idCheckForm.jsp");
-//		view.forward(request, response);
+		//이메일 받아오기
+//		String email_1 = request.getParameter("email_1"); //아이디
+//		String email_2 = request.getParameter("email_2"); //뒷 메일
+//		String email = email_1 + "@" + email_2;
 		
+		String email = request.getParameter("email");
+		System.out.println("EmailCheckServlet 횐갑 email들어오는지 확인 : " + email);
 		
+		int result = new MemberService().memberEmail(email);
 		
 		PrintWriter out = response.getWriter();
-		if(result > 0) {
-			System.out.println("idcheck서블릿에서 확인하는 기존 아이디 있음 =>"+result);
+		if(result > 0) {// 이메일값이 이미 있으면 가입할 수 없다. => 인증메일 발송 불가
 			out.append("fail");
-			
-		}else {
-			System.out.println("idcheck서블릿에서 확인하는 기존 아이디 없음 =>"+result);
+		}else {			//이메일이 없으면 가입할 수 있다. => 인증메일 발송 가능
 			out.append("success");
 		}
 		out.flush();
 		out.close();
-		
 	}
 
 	/**

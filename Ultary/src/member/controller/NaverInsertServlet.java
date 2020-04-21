@@ -14,16 +14,16 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class insertMemberServlet
+ * Servlet implementation class NaverInsertServlet
  */
-@WebServlet(urlPatterns = "/insert.mem", name = "insertMemberServlet")
-public class insertMemberServlet extends HttpServlet {
+@WebServlet("/naverInsert.mem")
+public class NaverInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertMemberServlet() {
+    public NaverInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +32,14 @@ public class insertMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//필터 만들었으니까 인코딩 주석
-		//request.setCharacterEncoding("UTF-8");
-		
+		//memberjoinNaberForm에서 받아온 정보로 인설트하기
 		String memberid = request.getParameter("memberid");
 		String nickname = request.getParameter("nickname");
 		String membername = request.getParameter("membername");
-		String password = request.getParameter("password");
+		String password = "불필요정보";
 		//성별 name="gender" 로 1항목
-		String gend = request.getParameter("gender");
-		char gender = gend.charAt(0);
+		String gen = request.getParameter("gender");
+		char gender = gen.charAt(0);
 		
 		
 		//생년월일 name="birth"로 3항목
@@ -51,9 +49,10 @@ public class insertMemberServlet extends HttpServlet {
 		String birth = birthY+birthM+birthD;
 		
 		//email 받기
-		String email_1 = request.getParameter("email_1"); //아이디
-		String email_2 = request.getParameter("email_2"); //직접입력시 이메일주소칸
-		String email = email_1 + "@" + email_2;
+//		String email_1 = request.getParameter("email_1"); //아이디
+//		String email_2 = request.getParameter("email_2"); //직접입력시 이메일주소칸
+//		String email = email_1 + "@" + email_2;
+		String email = request.getParameter("naverEmail");
 		
 		//전화번호 합치기
 		String phone1 = request.getParameter("phone1");
@@ -69,8 +68,8 @@ public class insertMemberServlet extends HttpServlet {
 		
 		String address = zipNo+"/"+roadAddrPart1+"/"+roadAddrPart2+"/"+addrDetail;
 		
-		int pwquery = Integer.parseInt(request.getParameter("pwquery"));
-		String pwqans = request.getParameter("pwqans");
+		int pwquery = 0;
+		String pwqans = "불필요정보";
 		String trustStr = request.getParameter("trust");
 		char trust = trustStr.charAt(0);
 		int turstmeans = Integer.parseInt(request.getParameter("turstmeans")==null? "0" : request.getParameter("turstmeans"));
@@ -118,9 +117,7 @@ public class insertMemberServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher(page);
 			view.forward(request, response);
 		}
-		
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
