@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<Pet> loginPet = (ArrayList<Pet>)session.getAttribute("loginPet");
+	ArrayList<Media> loginMedia = (ArrayList<Media>)session.getAttribute("loginMedia");
 	String add = ((Member)session.getAttribute("loginUser")).getAddress();
 	String[] addArr = add.split("/");
+	String petkind = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -237,7 +240,6 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 					</ul>
 				</aside>
 				<section>
-	<body>
 	
 	<center><h1><u>내 정보 관리</u></h1></center>
 	<hr width=50% color="white">
@@ -408,92 +410,63 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 		<center><input type="submit" id="retoch2" value="수정저장" style='cursor:pointer;'></center><br>
 	</form>
 	
-		<form id="myForm2" name = "myForm2" action="<%= request.getContextPath() %>/update.pet" method="post">
 		<center><h2>반려동물 정보</h2></center>
-	<table>
-		<tr>
-			<th>프로필  사진</th>
-			<td>
-				<input type=file name='file1' style='display: none;' id="petFileImg" multiple="multiple" onchange="LoadImg(this,1)">  
-				<img src='<%= request.getContextPath() %>/image/catprofile.png' border='0' class="fileInput" id="basicImg" width="200px" height="126px" style='cursor:pointer;'>
-				<img border='0' id="inputImg" width="200px" height="126px" class="fileInput" style='cursor:pointer;'>
-				<!-- <div id=petFileImgDiv></div> -->
-				<!-- <input type="file" id="petFileImg" multiple="multiple" name="petFileImg" onchange="LoadImg(this,1)"> -->
-				<script>
-					// 내용 작성 부분의 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
-					$(function(){
-						/* 
-						
-						$("#mypage").click(function(){
-							$("#petFileImg").click();
-						}); */
-						$("#inputImg").hide();
-						$('.fileInput').click(function(){
-							$("#petFileImg").click();
-						});
-					});
-					
-					// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
-					function LoadImg(value, num){
-						if(value.files && value.files[0]){
-							var reader = new FileReader();
-							
-							reader.onload = function(e){								
-									$("#inputImg").attr("src", e.target.result);
-									$("#inputImg").show();
-									$("#basicImg").hide();
-								}
-							
-							reader.readAsDataURL(value.files[0]);
-						}
-					}
-				</script>
-			</td>
-		</tr>
-		<tr>
-			<th>반려동물 이름</th>
-			<td><input type="text" name="petname" id="petname" placeholder="이름을 입력해주세요"></td>
-		</tr>
-		<tr>
-			<th>반려동물 종류</th>
-			<td>		
-			<select id="pettype" name="pettype" class="text" placeholder="반려동물" style="height: 25px;">
-								<option class="text">반려동물</option>
-								<option value="강아지">강아지</option>
-								<option value="고양이">고양이</option>
-								<option value="설치류">설치류</option>
-								<option value="파충류">파충류</option>
-								<option value="조류">조류</option>	
-								<option value="기타">기타</option>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<th>성별 </th>
-			<td><input type="radio" name="gender" id="gender">여자
-				<input type="radio" name="gender" id="gender">남자
-			</td>
-		</tr>
-		<tr>
-			<th>나이</th>
-			<td><input type="number" name="petage" id="petage" style="width: 50px;"></td>
-		</tr>
-		<tr>
-			<td colspan="2"><center><input id="retoch" type="submit" value="수정저장" style='cursor:pointer;'></center></td><br>
-		</tr>
-		<tr>
-			<td colspan="2"><center><input type="button" id="petplus" style="cursor:pointer;" value="반려동물 추가"></center></td>
-		</tr>
+	<!-- 여기부터 반려동물 정보칸 -->
+		<div id="petdiv">
+		<% for(int i=0;i<loginPet.size();i++){ 
+			Pet p = loginPet.get(i);
+			switch(p.getPetKind()){
+			case '1': petkind="강아지"; break;
+			case '2':	petkind="고양이"; break;
+			case '3':	petkind="설치류"; break;
+			case '4':	petkind="파충류"; break;
+			case '5':	petkind="조류"; break;
+			case '6':	petkind="어류"; break;
+			case '7':	petkind="기타"; break;
+			} %>
+			<% for(int j=0;j<loginMedia.size();j++){
+				Media m = loginMedia.get(j); %>
+				<% if(p.getPetNum() == m.getPetNum()){ %>
+			<table class="petone">
+				<tr>
+					<th>프로필  사진</th>
+					<td>
+						<img src='<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>' border='0' class="fileInput" id="basicImg" width="200px" height="126px" style='cursor:pointer;'>
+					</td>
+				</tr>
+				<tr>
+					<th>반려동물 이름</th>
+					<td><%= p.getPetName() %></td>
+				</tr>
+				<tr>
+					<th>반려동물 종류</th>
+					<td>
+						<%= petkind %>
+					</td>
+				</tr>
+				<tr>
+					<th>성별</th>
+					<td>
+						<%= p.getPetGender() %>
+					</td>
+				</tr>
+				<tr>
+					<th>나이</th>
+					<td>
+						<%= p.getPetage() %>
+					</td>
+				</tr>
+			</table>
+				<% } %>
+			<% } %>
+		<% } %>
+		</div>
+		<center><input type="button" id="petplus" style="cursor:pointer;" value="반려동물 변경"></center>
 		<script>
-		$('#petplus').click(function(){
-			window.open('<%= request.getContextPath()%>/views/myPage/petUpdate_Popup.jsp','pop','width=950, height=600');
-		});
-	// 	function petplus(){
-	// 		window.open('views/myPage/petUpdate_Popup.jsp','pop','width=500, height=500');
-	// 	}
+			$('#petplus').click(function(){
+				window.open('<%= request.getContextPath()%>/views/myPage/petList.jsp', 'pop', 'width=950, height=650');
+			});
 		</script>
-	</table>
-	</form>
 	</div>
 				</section>
 			</div>

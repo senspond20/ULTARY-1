@@ -6,9 +6,12 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import member.model.dao.MemberDAO;
+import member.model.vo.Media;
 import member.model.vo.Member;
+import member.model.vo.Pet;
 
 public class MemberService {
 
@@ -114,7 +117,91 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	public int memberUpdate(Member m) {
+		Connection conn = getConnection();
 
+		int result = new MemberDAO().memberUpdate(conn, m);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int pwdUpdate(Member b, String passwordN) {
+		Connection conn = getConnection();
+		
+		//아이디와 현재비번으로 회원이 있는가 확인
+		int result = new MemberDAO().chkMemeber(conn, b, passwordN);
+		System.out.println("회원이면 1 = "+result);
+		if (result == 1) { //있으면
+			//비번 업데이트하고 
+			int result1 = new MemberDAO().pwdUpdate(conn, b, passwordN);
+			if (result1 == 1) {//업데이트에 성공하면
+				commit(conn);
+
+			} else {
+				rollback(conn);
+			}
+		}
+		close(conn);
+
+		return result;
+	}
+
+	public int deleteMember(String memberId) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().deleteMember(conn, memberId);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int insertPet(Pet pet, Media m) {
+		Connection conn = getConnection();
+
+		int result1 = new MemberDAO().insertPet(conn, pet);
+		if(result1 >0) {
+			int result2 = new MemberDAO().insertPetImage(conn, m);
+			if(result2 > 0) {
+				commit(conn);
+			}
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result1;
+
+	}
+
+	public ArrayList<Pet> loginPet(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<Pet> p = new MemberDAO().loginPet(conn, memberid);
+		
+		close(conn);
+		return p;
+	}
+
+	public ArrayList<Media> loginMedia(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> m = new MemberDAO().loginMedia(conn, memberid);
+		
+		close(conn);
+		return m;
+	}
 	
 
 }
