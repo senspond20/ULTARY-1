@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ULTARY</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet"
@@ -153,6 +153,28 @@ input:checked+.slider:before {
 	border: 3px solid whitesmoke;
 	height: 120px;
 }
+.pagingArea{
+	margin-top: 20px;
+}
+.pagingArea button {
+	border-radius: 10px;
+	background: beige;
+	height: 25px;
+	width: 50px
+}
+
+#numBtn {
+	background: skyblue;
+}
+
+#choosen {
+	background: #FFD8D8;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>

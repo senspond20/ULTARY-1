@@ -19,7 +19,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ULTARY</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 <style>

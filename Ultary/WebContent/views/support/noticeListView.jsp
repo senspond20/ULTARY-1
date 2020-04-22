@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터틀</title>
+<title>ULTARY</title>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
