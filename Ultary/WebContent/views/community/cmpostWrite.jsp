@@ -25,13 +25,13 @@
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
 				<section>
-					<form action="<%= request.getContextPath() %>/cminsert.po" method="post" encType="multipart/form-data">
+					<form action="<%= request.getContextPath() %>/cminsert.po" method="post" encType="multipart/form-data" onsubmit="return check();">
 					<div id="sectiondiv1">
 						<div id="sTop">게시글 작성</div>
 						<hr>
 						<div id="sTitle">
 							<label>Title : </label>
-							<input name="title">
+							<input name="title" id="title">
 							<select name="postRange">
 								<option value="1" selected>전체공개</option>
 								<option value="2">내관심회원만</option>
@@ -41,7 +41,7 @@
 						<hr>
 						<div id="sContent">
 							<label>Content : </label><br>
-							<textarea name="postContent"></textarea>
+							<textarea name="postContent" id="postContent"></textarea>
 						</div>
 						<hr>
 						<div id="sAdd">
@@ -73,7 +73,7 @@
 						</div>
 						<hr>
 						<div id="sSubmit">
-							<input type="submit" value="Complete">
+							<input type="submit" value="Complete" id="complete">
 						</div>
 						<div id="fileArea">
 							<input type="file" id="Img1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
@@ -130,7 +130,18 @@
 			reader.readAsDataURL(value.files[0]);
 		}
 	}
-	
+	$('#complete').click(function check(){
+		if($('#title').val() == ""){
+			alert('제목을 입력해주세요');
+			$('#title').focus();
+			return false;
+		} else if($('#postContent').val() ==""){
+			alert('내용을 입력해주세요');
+			$('#postContent').focus();
+			return false;
+		}
+		return true;
+	});
 </script>
 				</form>
 				

@@ -1,5 +1,7 @@
 package post.model.service;
 
+import static common.JDBCTemplate.*;
+
 import java.sql.Connection;
 
 import member.model.vo.Pet;
@@ -7,7 +9,7 @@ import post.model.dao.PostDAO;
 
 public class PetService {
 
-	public int insertPost(Pet p, ) {
+	public int insertPost(Pet p) {
 		Connection conn = getConnection();
 		
 		PostDAO dao = new PostDAO();
