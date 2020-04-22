@@ -49,7 +49,7 @@ public class UpdateReviewServlet extends HttpServlet {
 		int result = new MatchingService().updatetr(tr);
 		
 		if(result>0) {
-			response.sendRedirect("views/trustMatch/matching07.jsp");
+			response.sendRedirect("myreview.tu");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage/jsp");
 			request.setAttribute("msg", "리뷰수정 실패");
