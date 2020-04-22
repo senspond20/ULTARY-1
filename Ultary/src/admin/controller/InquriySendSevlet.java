@@ -42,22 +42,17 @@ public class InquriySendSevlet extends HttpServlet {
 		String userId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 	//	String userId = "admin";
 		
-		Inquiry n = new Inquiry(title, content, userId);
-		int result = new InquiryService().insertInquiry(n);
-
-		String page = null;
+		int result = 0;
+		if(userId !=null) {
+			Inquiry n = new Inquiry(title, content, userId);
+			result = new InquiryService().insertInquiry(n);
+		}	
 		
 		if (result > 0) {
 			System.out.println("문의성공");
-		} else {
-			page ="views/common/errorPage.jsp";
-			request.setAttribute("msg", "문의에 실패했습니다.");
+			response.getWriter().print(result);
 		}
 		
-//		RequestDispatcher view = request.getRequestDispatcher(page);
-//		view.forward(request, response);
-	
-
 	}
 
 	/**
