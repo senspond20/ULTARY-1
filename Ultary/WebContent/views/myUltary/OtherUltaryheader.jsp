@@ -80,38 +80,48 @@
 		</div>
 		<div id="header-bottom">
 			<img id="backimg" src="<%= request.getContextPath() %>/image/1.png">
-			<div id="ultaryhost"></div>
 		</div>
 		<div id="proimgdiv">
 				<div id="promaindiv">
 					<img style="width: 100%; height: 100%" src="<%= request.getContextPath() %>/image/사진변경.png">
 				</div>
-				<% if(proImg != null){ %>
-				<img id="proimg" src="<%= request.getContextPath() %>/uploadFiles/<%= proImg.getWebName() %>">
+				<% if(proimgroute != ""){ %>
+				<img id="proimg" src="<%= request.getContextPath() %>/uploadFiles/<%= proimgroute %>">
 				<% } else{ %>
 				<img id="proimg" src="<%= request.getContextPath() %>/image/프로필.png">
 				<% } %>
 			</div>
 	</header>
 	<div id="tlhostdiv">
-		<div id="tlhost"><%= loginUser.getNickname() %></div>
+		<div id="tlhost"><%= nickname %></div>
+		<div id="tlmark"><div id="tlmark1"><%= markscore %> Follow!!</div></div>
 	</div>
 <script>
 	$(function(){
-		$('#profileimgdiv').hide();
-		
-		$('#promaindiv').hover(function(){
-			$('#promaindiv').css("opacity", "1");
-		}, function(){
-			$('#promaindiv').css("opacity", "0");
+		$('#tlmark').click(function(){
+			var markmem = "<%= nickname %>";
+			var memberid = "<%= loginUser.getMemberId() %>";
+			$.ajax({
+				url: 'markmember.mark',
+				data: {markmem:markmem, memberid:memberid},
+				success: function(data){
+					location.reload();
+				}
+			});
 		});
-		<% if(proImg != null){ %>
-		$('#promaindiv').click(function(){
-			window.open('<%= request.getContextPath() %>/views/myUltary/profilePOPUP.jsp?originImg=<%= proImg.getWebName() %>', '프로필변경', "width=500, height=500, top=200, left=300", true);
+		<% if(markbl){ %>
+		$('#tlmark1').css("background", "gold");
+		$('#tlmark1').mouseover(function(){
+			$('#tlmark1').css("background", "crimson");
+		}).mouseout(function(){
+			$('#tlmark1').css("background", "gold");
 		});
 		<% } else{ %>
-		$('#promaindiv').click(function(){
-			window.open('<%= request.getContextPath() %>/views/myUltary/profilePOPUP.jsp?', '프로필변경', "width=500, height=500, top=200, left=300", true);
+		$('#tlmark1').css("background", "crimson");
+		$('#tlmark1').mouseover(function(){
+			$('#tlmark1').css("background", "gold");
+		}).mouseout(function(){
+			$('#tlmark1').css("background", "crimson");
 		});
 		<% } %>
 	});

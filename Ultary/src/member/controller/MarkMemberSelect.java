@@ -17,13 +17,13 @@ import member.model.vo.Member;
  * Servlet implementation class MarkMember
  */
 @WebServlet("/markmember.mem")
-public class MarkMember extends HttpServlet {
+public class MarkMemberSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarkMember() {
+    public MarkMemberSelect() {
         super();
         // TODO Auto-generated constructor stub
     }

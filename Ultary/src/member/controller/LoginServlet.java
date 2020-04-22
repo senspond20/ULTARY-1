@@ -15,6 +15,7 @@ import member.model.service.MemberService;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import post.model.service.PostService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -41,11 +42,10 @@ public class LoginServlet extends HttpServlet {
 		String memberid = request.getParameter("memberid");
 		String password = request.getParameter("password");
 	
-		System.out.println(memberid + ", " + password); //아이디, 비번 받아오는거 확인
 		
 		Member m = new Member(memberid, password);
-		System.out.println("m" + m);
 		Member loginUser = new MemberService().loginMember(m);
+		Media proImg = new PostService().selectProImg(memberid);
 		ArrayList<Pet> loginPet = new MemberService().loginPet(memberid);
 		ArrayList<Media> loginMedia = new MemberService().loginMedia(memberid);
 		//**리퀘스트는 한번만 요청 가능하다!!! 세션을 만들어서 로그인 정보를 넣을것.
@@ -59,6 +59,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("loginPet", loginPet);
 			session.setAttribute("loginMedia", loginMedia);
+			session.setAttribute("proImg", proImg);
 			session.setMaxInactiveInterval(30000); 
 			//10분동안 session 유지
 			

@@ -4,7 +4,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Post> pList = (ArrayList)request.getAttribute("pList");
 	ArrayList<Media> mList = (ArrayList)request.getAttribute("mList");
-%> 
+%>
 <!DOCTYPE html>
 <html>
 <head>

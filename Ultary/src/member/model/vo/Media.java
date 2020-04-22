@@ -13,6 +13,12 @@ public class Media {
 	public Media() {
 		
 	}
+	
+	public Media(String webName, String memberId) {
+		super();
+		this.webName = webName;
+		this.memberId = memberId;
+	}
 
 	public Media(String imgroute, String imgName, String webName, String memberId) {
 		super();

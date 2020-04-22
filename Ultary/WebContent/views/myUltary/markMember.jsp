@@ -4,7 +4,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	Media proImg = (Media)session.getAttribute("proImg");
 	ArrayList<Member> markList = (ArrayList)request.getAttribute("markList");
-%> 
+%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -14,20 +14,21 @@ import member.model.vo.Media;
 import member.model.vo.Member;
 import post.model.service.PostService;
 import post.model.vo.CAns;
+import post.model.vo.MarkPost;
 import post.model.vo.Post;
 import post.model.vo.PostComment;
 
 /**
- * Servlet implementation class TimeLIneServlet
+ * Servlet implementation class MarkPostSelect
  */
-@WebServlet(name = "TimeLineServlet", urlPatterns = { "/post.tl" })
-public class TimeLineServlet extends HttpServlet {
+@WebServlet("/markpost.tl")
+public class MarkPostSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TimeLineServlet() {
+    public MarkPostSelect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,28 +37,25 @@ public class TimeLineServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String memberid = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		PostService service = new PostService();
-		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
-		String nickname = ((Member)request.getSession().getAttribute("loginUser")).getNickname();
 		
-		ArrayList<Post> pList = service.selectTList(1, memberId);
-		ArrayList<PostComment> pcList = service.selectComment(memberId);
+		ArrayList<Post> plist = service.selectMarkPost(memberid);
+		ArrayList<PostComment> pclist = service.selectMarkpc(memberid);
+		ArrayList<CAns> calist = service.selectMarkCAns(memberid);
+		ArrayList<Media> mlist = service.selectMarkm(memberid);
+		ArrayList<Media> proList = service.selectAllproimg();
 		
-		ArrayList<Media> mList = service.selectTList(2, memberId);
-		ArrayList<Media> proList = service.selectproimg(nickname);
-		
-		ArrayList<CAns> cList = service.selectCAns(memberId);
-		
-		String page = null;
-		if(pList != null && mList != null && pcList != null && cList != null) {
-			request.setAttribute("pList", pList);
-			request.setAttribute("mList", mList);
-			request.setAttribute("pcList", pcList);
-			request.setAttribute("cList", cList);
+		String page = "";
+		if(plist != null && pclist != null && calist != null && mlist != null && proList != null) {
+			request.setAttribute("plist", plist);
+			request.setAttribute("pclist", pclist);
+			request.setAttribute("calist", calist);
+			request.setAttribute("mlist", mlist);
 			request.setAttribute("proList", proList);
-			page = "views/myUltary/ultaryMain.jsp";
+			page = "views/myUltary/markPost.jsp";
 		} else {
-			request.setAttribute("msg", "타임라인 조회에 실패헀습니다.");
+			request.setAttribute("msg", "게시물 즐겨찾기 조회에 실패");
 			page = "views/common/errorPage.jsp";
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);

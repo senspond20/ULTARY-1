@@ -38,6 +38,13 @@ public class Member {
 		this.password = password;
 	}
 	
+	public Member(String nickname, char gender, int markscore) {
+		super();
+		this.nickname = nickname;
+		this.gender = gender;
+		this.markscore = markscore;
+	}
+
 	// 네이버에서 받아오는 정보 (이름, 아이디, 이메일, 닉네임, 성별, 생일)
 	public Member(String memberId, String nickname, String memberName, String birth, char gender, String email) {
 		super();
@@ -49,6 +56,29 @@ public class Member {
 		this.email = email;
 	}
 	
+	
+	public Member(String memberId, String nickname, String memberName, char gender, String birth, String email,
+			String phone, Date enrollDate, String address, char trust, int trustmeans, String trustfield,
+			String trustAdd, int markscore, char warn, char status) {
+		super();
+		this.memberId = memberId;
+		this.nickname = nickname;
+		this.memberName = memberName;
+		this.gender = gender;
+		this.birth = birth;
+		this.email = email;
+		this.phone = phone;
+		this.enrollDate = enrollDate;
+		this.address = address;
+		this.trust = trust;
+		this.trustmeans = trustmeans;
+		this.trustfield = trustfield;
+		this.trustAdd = trustAdd;
+		this.markscore = markscore;
+		this.warn = warn;
+		this.status = status;
+	}
+
 	//회원가입시 받는 정보
 	public Member(String memberId, String nickname, String memberName, String password, char gender, String birth,
 			String email, String phone, String address, int pwQuery, String pwqAns, char trust, int trustmeans,

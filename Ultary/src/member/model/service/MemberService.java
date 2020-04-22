@@ -6,6 +6,7 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import member.model.dao.MemberDAO;
@@ -203,5 +204,77 @@ public class MemberService {
 		return m;
 	}
 	
+	////////////////호성
+	public ArrayList<Member> selectMarkMember(String loginId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> markList = new MemberDAO().selectMarkMember(conn, loginId);
+		
+		close(conn);
+		return markList;
+	}
 
+	public ArrayList<Member> selectMember(String searchtext) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDAO().selectMember(conn, searchtext);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int MarkMemInsert(String memberid, String markmem) {
+		Connection conn = getConnection();
+		
+		ResultSet rset = new MemberDAO().selectMarkMem(conn, memberid, markmem);
+		
+		int result1 = 0;
+		int result2 = 0;
+		
+		if(rset != null) {
+			result1 = new MemberDAO().deleteMarkMem(conn, memberid, markmem);
+			result2 = new MemberDAO().markDown(conn, markmem);
+			if(result1 > 0 && result2 > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else {
+			result1 = new MemberDAO().insertMarkMem(conn, memberid, markmem);
+			result2 = new MemberDAO().markUp(conn, markmem);
+			if(result1 > 0 && result2 > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		close(conn);
+		
+		return result1;
+	}
+
+	public int selectMarkscore(String nickname) {
+		Connection conn = getConnection();
+		
+		int markscore = new MemberDAO().selectMarkscore(conn, nickname);
+		
+		close(conn);
+		
+		return markscore;
+	}
+
+	public int updateTrust(Member m) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().updateTrust(conn, m);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+	//////////////호성 끝
 }

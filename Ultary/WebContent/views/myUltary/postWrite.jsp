@@ -27,7 +27,7 @@
 							<label>Title : </label>
 							<input name="title">
 							<select name="postRange">
-								<option value="1" selected>전체공개5</option>
+								<option value="1" selected>전체공개</option>
 								<option value="2">내관심회원만</option>
 								<option value="3">나만보기</option>
 							</select>

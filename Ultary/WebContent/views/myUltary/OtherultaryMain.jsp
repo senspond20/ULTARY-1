@@ -2,19 +2,29 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, member.model.vo.*, post.model.vo.*"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	Media proImg = (Media)session.getAttribute("proImg");
+	String nickname = (String)request.getAttribute("nickname");
 	ArrayList<Post> plist = (ArrayList<Post>)request.getAttribute("plist");
 	ArrayList<PostComment> pclist = (ArrayList<PostComment>)request.getAttribute("pclist");
 	ArrayList<Media> mlist = (ArrayList<Media>)request.getAttribute("mlist");
 	ArrayList<CAns> calist = (ArrayList<CAns>)request.getAttribute("calist");
 	ArrayList<Media> proList = (ArrayList<Media>)request.getAttribute("proList");
+	ArrayList<MarkPost> mpList = (ArrayList<MarkPost>)request.getAttribute("mpList");
+	Boolean markbl = (Boolean)request.getAttribute("markbl");
+	int markscore = (int)request.getAttribute("markscore");
+	String proimgroute = "";
+	for(int i=0;i<mlist.size();i++){
+		Media m = mlist.get(i);
+		if(m.getMediaUse() == 1){
+			proimgroute = m.getWebName();
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물 즐겨찾기</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myUltary/markPost.css">
+<title><%= nickname %>의 울타리</title>
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myUltary/otherultaryMain.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -28,17 +38,18 @@
 	<%@ include file="chat.jsp" %>
 	<div id="all">
 		<div id="all-wrap">
-	<%@ include file="myUltaryheader.jsp" %>
-	<%@ include file="navaside.jsp" %>
+	<%@ include file="OtherUltaryheader.jsp" %>
+	<%@ include file="othernavaside.jsp" %>
 			<div id="topBtn">
 				<a href="#all"><img src="<%= request.getContextPath() %>/image/top버튼.png" style="width:80%;height:80%"></a>
 			</div>
+		
 			<section>
 				<div class="sectiondiv">
 				<% if(plist.isEmpty()){ %>
 				<h1>조회할 게시물이 없음</h1>
 				<% } else{ %>
-					<% for(int i = plist.size()-1; i >= 0; i--) {
+					<% for(int i = plist.size()-1; i >= 0; i--) { 
 						Post p = plist.get(i);
 						String category = "";
 						switch(p.getCategorynum()){
@@ -50,23 +61,14 @@
 					<div class="content1">
 						<div class="writer">
 							<div class="sectionimg">
-								<% for(int q=0;q<=proList.size();q++){ 
-									if(q==proList.size()){ %>
-									<img class="sectionpic" src="<%= request.getContextPath() %>/image/프로필.png">
-									<% break;
-									}
-									Media postproimg = proList.get(q); 
-									if(p.getMemberid().equals(postproimg.getMemberId())){ %>
-									<img class="sectionpic" src="<%= request.getContextPath() %>/uploadFiles/<%= postproimg.getWebName() %>">
-									<% break;
-									} %>
+								<% if(proimgroute != ""){ %>
+								<img class="sectionpic" src="<%= request.getContextPath() %>/uploadFiles/<%= proimgroute %>">
+								<% } else{ %>
+								<img class="sectionpic" src="<%= request.getContextPath() %>/image/프로필.png">
 								<% } %>
-								<div class="sectionNick"><%= p.getMemberid() %></div>
+								<div class="sectionNick"><%= nickname %></div>
 							</div>
 							<div class="contentTitle"><%= p.getPostTitle() %></div>
-							<% if(p.getMemberid().equals(loginUser.getNickname())){ %>
-							<div id="cDelete<%= i %>" class="cDelete">삭제</div>
-							<% } %>
 							<div class="writerR">게시일 | <%= p.getPostDate() %></div>
 						</div>
 						
@@ -97,7 +99,17 @@
 						<div class="explain">
 							<div id="petlife"><%= category %></div>
 							<div class="expansionbox">카테고리</div>
-							<div id="expansionbox<%= i %>" class="expansionbox">관심글 삭제</div>
+							<% for(int a=0;a<=mpList.size();a++){ 
+								if(a==mpList.size()){ %>
+							<div id="expansionbox<%= i %>" class="expansionbox">관심글 등록</div>		
+							<%	break;
+								}
+								MarkPost mp = mpList.get(a);
+								if(mp.getPostNum() == p.getPostNum()) {%>
+							<div id="expansionbox<%= i %>" class="expansionbox">관심글 취소</div>
+							<%	break;
+								} %>
+							<% } %>
 							<div id="likeBtn<%= i %>" class="expansionbox"><%= p.getPostLike() %> like</div>
 						</div>
 						<div id="comment<%= i %>"class="comment">
@@ -141,8 +153,6 @@
 								<div id="comment2-6<%= x %>" class="comment2-6">삭제</div>
 								<% } %>
 <script type="text/javascript">
-
-
    /*  댓글좋아요수! */
 	$(function(){
 		var cmlikeBtn = "#comment2-4"+<%= x %>;
@@ -214,7 +224,7 @@
 									<div class="commentans2-0">ㄴ</div>
 									<div class="commentans2-1">
 									<% if(!proList.isEmpty()){ %>
-										<% for(int o=0;o<=proList.size();o++) { 
+										<% for(int o=0;o<proList.size();o++) { 
 											Media cProimg = proList.get(o); %>
 											<% if(cProimg.getMemberId().equals(ca.getMemberid())){ %>
 										<img class="commentans2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
@@ -299,21 +309,16 @@
 		/* -------- 관심글 등록 -----------*/
 		var markPostBtn = "#expansionbox"+<%= i %>;
 		$(markPostBtn).click(function(){
-			var qdeleteP = confirm('관심글삭제할까염?');
-			if(qdeleteP){
-				var postNum = <%= p.getPostNum() %>;
-				$.ajax({
-					url: 'insertMarkPost.tl',
-					data: {postNum:postNum},
-					success: function(data){
-						location.reload();
-					}
-				});
-			} else{
-				alert('ㅇㅋ 삭제취소');
-			}
-			
+			var postNum = <%= p.getPostNum() %>;
+			$.ajax({
+				url: 'insertMarkPost.tl',
+				data: {postNum:postNum},
+				success: function(data){
+					location.reload();
+				}
+			});
 		});
+		
 		/* ---------- 게시글 삭제하기 ------------ */
 		var deleteBtn = "#cDelete"+<%= i %>;
 		

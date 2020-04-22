@@ -640,6 +640,227 @@ public class MemberDAO {
 		return m;
 	}
 	
+	//// 호성 시작////////////////
+	
+	public ArrayList<Member> selectMarkMember(Connection conn, String loginId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> markList = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectMarkMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loginId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setNickname(rset.getString("nickname"));
+				m.setMemberId(rset.getString("memberid"));
+				m.setMarkscore(rset.getInt("markscore"));
+				
+				markList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return markList;
+	}
+
+	public ArrayList<Member> selectMember(Connection conn, String searchtext) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, searchtext);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getString("nickname"),
+									rset.getString("gender").charAt(0),
+									rset.getInt("markscore")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ResultSet selectMarkMem(Connection conn, String memberid, String markmem) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectMarkMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, markmem);
+			
+			rset = pstmt.executeQuery();
+			
+			if(!rset.next()) {
+				rset = null;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rset;
+	}
+
+	public int deleteMarkMem(Connection conn, String memberid, String markmem) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMarkMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, markmem);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int markDown(Connection conn, String markmem) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("markDown");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, markmem);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertMarkMem(Connection conn, String memberid, String markmem) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMarkMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberid);
+			pstmt.setString(2, markmem);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int markUp(Connection conn, String markmem) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("markUp");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, markmem);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectMarkscore(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int markscore = 0;
+		
+		String query = prop.getProperty("selectMarkscore");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, nickname);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				markscore = rset.getInt("markscore");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return markscore;
+	}
+
+	public int updateTrust(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateTrust");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getTrust()+"");
+			pstmt.setInt(2, m.getTrustmeans());
+			pstmt.setString(3, m.getTrustfield());
+			pstmt.setString(4, m.getTrustAdd());
+			pstmt.setString(5, m.getMemberId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/////////////호성 끝
 
 
 }
