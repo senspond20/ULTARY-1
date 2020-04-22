@@ -48,9 +48,9 @@
                   </li>
                   <li class='active'><a href='#'>고객센터</a>
                      <ul id="menu5">
-                        <li><a href='#'>공지 사항</a></li>
-                        <li><a href='#'>자주하는 질문</a></li>
-                        <li><a href='#'>1:1 문의</a></li>
+                        <li><a href='<%= request.getContextPath() %>/slist.no'>공지 사항</a></li>
+                        <li><a href='<%= request.getContextPath() %>/faq.sv'>자주하는 질문</a></li>
+                        <li><a href='<%=request.getContextPath()%>/views/support/InquirySend.jsp'>1:1 문의</a></li>
                      </ul>
                   </li>
                </ul>

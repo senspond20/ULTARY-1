@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
+	int cnum = Integer.parseInt(request.getParameter("cnum"));
 %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,8 @@
 <title>Insert title here</title>
 </head>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/postWrite.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/cmpostWrite.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myUltary/postWrite.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -23,13 +25,13 @@
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
 				<section>
-					<form action="<%= request.getContextPath() %>/cminsert.po" method="post" encType="multipart/form-data">
+					<form action="<%= request.getContextPath() %>/cminsert.po" method="post" encType="multipart/form-data" onsubmit="return check();">
 					<div id="sectiondiv1">
 						<div id="sTop">게시글 작성</div>
 						<hr>
 						<div id="sTitle">
 							<label>Title : </label>
-							<input name="title">
+							<input name="title" id="title">
 							<select name="postRange">
 								<option value="1" selected>전체공개</option>
 								<option value="2">내관심회원만</option>
@@ -39,12 +41,12 @@
 						<hr>
 						<div id="sContent">
 							<label>Content : </label><br>
-							<textarea name="postContent"></textarea>
+							<textarea name="postContent" id="postContent"></textarea>
 						</div>
 						<hr>
 						<div id="sAdd">
 							<label>카테고리 설정&nbsp;&nbsp;| </label>
-							<select name="categorynum">
+							<select name="categorynum" id="categorynum">
 								<option value="2" selected>펫일상</option>
 								<option value="3">펫지식</option>
 								<option value="4">펫리뷰</option>
@@ -71,7 +73,7 @@
 						</div>
 						<hr>
 						<div id="sSubmit">
-							<input type="submit" value="Complete">
+							<input type="submit" value="Complete" id="complete">
 						</div>
 						<div id="fileArea">
 							<input type="file" id="Img1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
@@ -96,6 +98,13 @@
 		$("#media4").click(function(){
 			$("#Img4").click();
 		});
+		
+		switch(<%= cnum %>){
+		case 3: $('#categorynum option:eq(1)').prop("selected",true);break;
+		case 4: $('#categorynum option:eq(2)').prop("selected",true);break;
+		case 5: $('#categorynum option:eq(3)').prop("selected",true);break;
+		}
+		
 	});
 	function LoadImg(value, num){
 		if(value.files && value.files[0]){
@@ -121,7 +130,18 @@
 			reader.readAsDataURL(value.files[0]);
 		}
 	}
-	
+	$('#complete').click(function check(){
+		if($('#title').val() == ""){
+			alert('제목을 입력해주세요');
+			$('#title').focus();
+			return false;
+		} else if($('#postContent').val() ==""){
+			alert('내용을 입력해주세요');
+			$('#postContent').focus();
+			return false;
+		}
+		return true;
+	});
 </script>
 				</form>
 				

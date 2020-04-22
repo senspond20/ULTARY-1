@@ -1,0 +1,415 @@
+@charset "UTF-8";
+@charset "UTF-8";
+#all{
+	width:100%;
+	min-height:1000px;
+	min-width:1200px;
+	background:white;
+}
+#all-wrap{
+	width:1200px;
+	margin:0 auto;
+	min-height:1000px;
+	border-left:1px solid gray;
+	border-right:1px solid gray;
+}
+
+header{
+	width:100%;
+	height:180px;
+}
+nav{
+	width:100%;
+	height:70px;
+	background:white;
+}
+#asidesection{
+	width:100%;
+	min-height:1200px;
+	padding-top:20px; 
+	padding-bottom: 20px;
+	overflow-y: overlay;
+}
+aside{
+	margin-left:20px;
+	float:left;
+	width:205px;
+	min-height:200px;
+	border:1px solid gray;
+	border-radius: 50px;
+}
+section{
+	float: left;
+    width: 900px;
+    min-height: 610px;
+    background: #EAEAEA;
+    margin-left: 30px;
+}
+footer{
+	text-align:right;
+	font-size:50px;
+	width:100%;
+	height:300px;
+	background:green;
+}
+
+/* ---헤더 상단바------------------------------------------------ */
+
+#header-top{
+	width:100%;
+	height:40px;
+	overflow:hidden;
+}
+
+/* #343a40!important; */
+
+.headerimg{
+	width:30px;
+	height:30px;
+	margin-top:5px;
+	margin-left:10px;
+	float:left;
+}
+#header-topR{
+	width:220px;
+	height:100%;
+	margin-top: -12.7px;
+	float:right;
+}
+#nick{
+	float:left;
+	margin-top: 15px;
+    font-size: 25px;
+    color: blue;
+}
+#nim{
+	float:left;
+	margin-top: 7.8px;
+    margin-left: 5px;
+    font-size: 35px;
+}
+#logout{
+	float:left;
+	margin-top: 17.2px;
+    margin-left: 15.1px;
+    width: 80px;
+    height: 30px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    background-color: #FFDC6C;
+    border-width: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ---헤더 하단바------------------------------------------------ */
+
+#header-bottom{
+	width:100%;
+	height:140px;
+	background:white;
+}
+#logoimg{
+	width: 150px;
+    height: 110px;
+    margin-left: 45.5%;
+    margin-top: 15.1px;
+}
+
+/* --카테고리 바------------------------------------------------ */
+
+
+  @import url(http://fonts.googleapis.com/css?family=Raleway);
+#cssmenu,
+#cssmenu>ul,
+#cssmenu>ul>li,
+#cssmenu>ul>li>a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+}
+#cssmenu:after,
+#cssmenu>ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu {
+  width: auto;
+  border-bottom: 3px solid #5CD1E5;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+}
+#cssmenu>ul {
+  background: #ffffff;
+  margin-left: 245.2px;
+  width: 770px;
+}
+#cssmenu > ul > li {
+  float: left;
+  width: 150px;
+  text-align: center;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu.align-right > ul > li > a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+#cssmenu > ul > li > a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #444444;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-right: -4px;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li:hover > a,
+#cssmenu > ul > li > a:hover {
+  color: #ffffff;
+}
+#cssmenu > ul > li > a:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 120%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  content: "";
+  -webkit-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transform: perspective(5px) rotateX(2deg);
+  -webkit-transform-origin: bottom;
+  -moz-transform: perspective(5px) rotateX(2deg);
+  -moz-transform-origin: bottom;
+  transform: perspective(5px) rotateX(2deg);
+  transform-origin: bottom;
+}
+#cssmenu > ul > li.active > a:after,
+#cssmenu > ul > li:hover > a:after,
+#cssmenu > ul > li > a:hover:after {
+  background: #5CD1E5;
+}
+
+#menu1{
+   margin: 0;
+    padding: 0;
+    border: 0;
+    width: 154.9px;
+    height: 260px;
+    position: absolute;
+    list-style: none;
+    border-radius: 10px;
+    top: 41.9px;
+    background: #5CD1E5;
+    display:none;
+}
+#menu1 li{
+   background: #5CD1E5;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    margin-top: 24.4px;
+}
+#menu1 a{
+   text-decoration: none;
+   color:white;
+}
+#cssmenu>ul>li:hover #menu1{
+   display:block;
+}
+#menu2{
+   margin: 0;
+    padding: 0;
+    border: 0;
+    width: 154.9px;
+    height: 260px;
+    position: absolute;
+    list-style: none;
+    border-radius: 10px;
+    top: 41.9px;
+    background: #5CD1E5;
+    display:none;
+}
+#menu2 li{
+   background: #5CD1E5;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    margin-top: 24.4px;
+}
+#menu2 a{
+   text-decoration: none;
+   color:white;
+}
+#cssmenu>ul>li:hover #menu2{
+   display:block;
+}
+#menu3{
+   margin: 0;
+    padding: 0;
+    border: 0;
+    width: 154.9px;
+    height: 260px;
+    position: absolute;
+    list-style: none;
+    border-radius: 10px;
+    top: 41.9px;
+    background: #5CD1E5;
+    display:none;
+}
+#menu3 li{
+   background: #5CD1E5;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    margin-top: 24.4px;
+}
+#menu3 a{
+   text-decoration: none;
+   color:white;
+}
+#cssmenu>ul>li:hover #menu3{
+   display:block;
+}
+#menu4{
+   margin: 0;
+    padding: 0;
+    border: 0;
+    width: 154.9px;
+    height: 260px;
+    position: absolute;
+    list-style: none;
+    border-radius: 10px;
+    top: 41.9px;
+    background: #5CD1E5;
+    display:none;
+}
+#menu4 li{
+   background: #5CD1E5;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    margin-top: 24.4px;
+}
+#menu4 a{
+   text-decoration: none;
+   color:white;
+}
+#cssmenu>ul>li:hover #menu4{
+   display:block;
+}
+#menu5{
+   margin: 0;
+    padding: 0;
+    border: 0;
+    width: 154.9px;
+    height: 260px;
+    position: absolute;
+    list-style: none;
+    border-radius: 10px;
+    top: 41.9px;
+    background: #5CD1E5;
+    display:none;
+}
+#menu5 li{
+   background: #5CD1E5;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    margin-top: 24.4px;
+}
+#menu5 a{
+   text-decoration: none;
+   color:white;
+}
+#cssmenu>ul>li:hover #menu5{
+   display:block;
+}
+
+/* --사이드 카테고리------------------------------------------------ */
+
+aside>ul{
+	list-style: none;
+}
+aside>ul li{
+	border-radius:5px;
+	text-align: center;
+	margin-left: -24.3px;
+    margin-top: 25px;
+    margin-right:5.1px;
+	background:white;
+	font-size:23px;
+	height: 43.3px;
+    width: 175px;
+}
+
+/* --세부 카테고리------------------------------------------------ */
+
+#semicategory{
+	height: 26px;
+    width: 63.4%;
+    margin-left: 241.9px;
+    margin-top: -15.6px;
+    border-radius: 2.2px;
+    background: #5CD1E5;
+}
+#semicategory>ul{
+	list-style: none;
+}
+.Insemicate{
+	float:left;
+	margin-top:1%;
+	height:10px;
+	border:1px solid gray;
+}
+#semicategory>ul li{
+	margin-left:68.2px;
+	float:left;
+	color:white;
+}
+
+/* ---펫 영역 -----------------------------------------*/
+
+#petdiv{
+	overflow:scroll;
+	border: 1px solid hsla(197, 62%, 74%, 0.603);
+    border-width: 20px;
+    background: white;
+    margin: 20px;
+}
+.petone{
+	float:left;
+}

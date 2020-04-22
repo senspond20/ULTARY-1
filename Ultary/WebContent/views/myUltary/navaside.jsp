@@ -19,7 +19,7 @@
 								</li>
 								<li><a href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp">게시글작성</a></li>
 								<li><a href="<%= request.getContextPath() %>/markmember.mem">관심회원</a></li>
-								<li><a href="<%= request.getContextPath() %>/views/myUltary/markPost.jsp">게시글 즐겨찾기</a></li>
+								<li><a href="<%= request.getContextPath() %>/markpost.tl">게시글 즐겨찾기</a></li>
 								<li><a href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp">내 위탁환경</a></li>
 							</ul>
 						</li>
@@ -63,7 +63,7 @@
 					<li><a href="<%= request.getContextPath() %>/post.tl">타임라인</a></li>
 					<li><a href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp">게시글작성</a></li>
 					<li><a href="<%= request.getContextPath() %>/markmember.mem">관심회원</a></li>
-					<li><a href="<%= request.getContextPath() %>/views/myUltary/markPost.jsp">게시글 즐겨찾기</a></li>
+					<li><a href="<%= request.getContextPath() %>/markpost.tl">게시글 즐겨찾기</a></li>
 					<li><a href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp">내 위탁환경</a></li>
 				</ul>
 			</aside>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Media;
 import post.model.service.PostService;
 import post.model.vo.PageInfo;
 import post.model.vo.Post;
@@ -65,8 +66,9 @@ public class CmAllListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,maxPage,startPage,endPage,boardLimit);
 		
-		ArrayList<Post> AllList = new PostService().selectAllList(currentPage, boardLimit);
+		ArrayList<Post> AllList = pservice.selectAllList(currentPage, boardLimit);
 		
+		ArrayList<Media> AllMList = pservice.selectAllMList();
 		
 		String page = "";
 		
@@ -74,6 +76,7 @@ public class CmAllListServlet extends HttpServlet {
 		if(AllList != null) {
 			page = "views/community/all_search.jsp";
 			request.setAttribute("AllList", AllList);
+			request.setAttribute("AllMList", AllMList);
 			request.setAttribute("pi", pi);
 		} else {
 			page ="views/common/errorPage.jsp";

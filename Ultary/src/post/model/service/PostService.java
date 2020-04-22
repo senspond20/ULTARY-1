@@ -11,7 +11,10 @@ import java.util.ArrayList;
 
 import member.model.vo.Media;
 import post.model.dao.PostDAO;
+import post.model.vo.CAns;
+import post.model.vo.MarkPost;
 import post.model.vo.Post;
+import post.model.vo.PostComment;
 
 public class PostService {
 
@@ -117,25 +120,285 @@ public class PostService {
 		close(conn);
 		return postLike;
 	}
-	public int getNListCount() {
+	
+	public ArrayList<PostComment> insertComment(PostComment pc) {
 		Connection conn = getConnection();
 		
-		int result = new PostDAO().getNListCount(conn);
+		int result = new PostDAO().insertComment(conn, pc);
+		ArrayList<PostComment> list = null;
+		
+		if(result > 0) {
+			commit(conn);
+			list = new PostDAO().selectCommentList(conn, pc.getPostNum());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<PostComment> selectComment(String memberId) {
+		Connection conn = getConnection();
+		
+		ArrayList<PostComment> list = new PostDAO().selectAllComment(conn, memberId);
+		
+		close(conn);
+		return list;
+	}
+
+	public int commentLike(int cNum, String memberId) {
+		Connection conn = getConnection();
+	
+		ResultSet rset = new PostDAO().selectlikepc(conn, cNum, memberId);
+		
+		int result1 = 0;
+		int result2 = 0;
+		
+		if(rset != null) {
+			result1 = new PostDAO().pcLikeDown(conn, cNum);
+			result2 = new PostDAO().deleteLikepc(conn, cNum, memberId);
+			if(result1 > 0 && result2 > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else {
+			result1 = new PostDAO().pcLikeUp(conn, cNum);
+			result2 = new PostDAO().insertLikepc(conn, cNum, memberId);
+			if(result1 > 0 && result2 > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		int clike = new PostDAO().selectpcLikeNum(conn, cNum);
+		
+		close(conn);
+		return clike;
+	}
+
+	public ArrayList<PostComment> selectCommentList(int pNum) {
+		Connection conn =getConnection();
+		
+		ArrayList<PostComment> list = new PostDAO().selectCommentList(conn, pNum);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Post> selectpOther(String nickname) {
+		Connection conn = getConnection();
+		
+		ArrayList<Post> list = new PostDAO().selectpOther(conn, nickname);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<PostComment> selectpcOther(String nickname) {
+		Connection conn = getConnection();
+		
+		ArrayList<PostComment> list = new PostDAO().selectpcOther(conn, nickname);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Media> selectmOther(String nickname) {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> list = new PostDAO().selectmOther(conn, nickname);
+		
+		close(conn);
+		return list;
+	}
+
+	public int deletePost(int pNum) {
+		Connection conn = getConnection();
+		
+		int result = new PostDAO().deletePost(conn, pNum);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int insertCAns(CAns ca) {
+		Connection conn = getConnection();
+		
+		int result = new PostDAO().insertCAns(conn, ca);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<CAns> selectCAns(String memberId) {
+		Connection conn = getConnection();
+		
+		ArrayList<CAns> list = new PostDAO().selectCAns(conn, memberId);
+		
+		close(conn);
+		return list;
+	}
+
+	public int deletePostComment(int cNum) {
+		Connection conn = getConnection();
+		
+		int result = new PostDAO().deletePostComment(conn, cNum);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public int deleteCAns(int ansNum) {
+		Connection conn = getConnection();
+		
+		int result = new PostDAO().deleteCAns(conn, ansNum);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<CAns> selectcaOther(String nickname) {
+		Connection conn = getConnection();
+		
+		ArrayList<CAns> list = new PostDAO().selectcaOther(conn, nickname);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Media> selectproimg(String nickname) {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> list = new PostDAO().selectproimg(conn, nickname);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Post> selectMarkPost(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<Post> list = new PostDAO().selectMarkPost(conn, memberid);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<PostComment> selectMarkpc(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<PostComment> list = new PostDAO().selectMarkpc(conn,memberid);
+				
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<CAns> selectMarkCAns(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<CAns> list = new PostDAO().selectMarkCAns(conn,memberid);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Media> selectMarkm(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> list = new PostDAO().selectMarkm(conn,memberid);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Media> selectAllproimg() {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> list = new PostDAO().selectAllproimg(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public int insertMarkPost(int postNum, String memberid) {
+		Connection conn = getConnection();
+		
+		ResultSet rset = new PostDAO().selectCheckMarkPost(conn, postNum, memberid);
+		
+		int result = 0;
+		
+		if(rset != null) {
+			result = new PostDAO().deleteMarkPost(conn, postNum, memberid);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else {
+			result = new PostDAO().insertMarkPost(conn, postNum, memberid);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<MarkPost> selectAllmp(String loginId) {
+		Connection conn = getConnection();
+		
+		ArrayList<MarkPost> list = new PostDAO().selectAllmp(conn, loginId);
+		close(conn);
+		return list;
+	}
+	//커뮤니티 부분--------------- ---------- ---------- ---------- ---------- ---------- 
+	//게시판 별 글 목록 조회
+	public int getListCount(int categorynum) {
+		Connection conn = getConnection();
+		
+		int result = new PostDAO().getListCount(conn,categorynum);
 		
 		close(conn);
 		
 		return result;
 	}
 	
-	public ArrayList<Post> selectNList(int currentPage, int boardLimit) {
-		// 커뮤니티 공지사항 전체 목록 
+	
+	public ArrayList<Post> selectList(int currentPage, int boardLimit,int categorynum) {
 		Connection conn = getConnection();
 		
-		ArrayList<Post> nlist = new PostDAO().selectNList(conn,currentPage,boardLimit);
+		ArrayList<Post> list = new PostDAO().selectList(conn,currentPage,boardLimit,categorynum);
 		
 		close(conn);
 		
-		return nlist;
+		return list;
 	}
 
 	public ArrayList<Post> selectAllList(int currentPage, int boardLimit) {
@@ -147,99 +410,18 @@ public class PostService {
 		
 		return AllList;
 	}
-
-	public int getAllListCount() {
-		Connection conn= getConnection();
+	// 공지사항을 제외한 모든 글 개수
+		public int getAllListCount() {
+			Connection conn= getConnection();
+			
+			int result = new PostDAO().getAllListCount(conn);
+			
+			close(conn);
+			
+			return result;
+		}
 		
-		int result = new PostDAO().getAllListCount(conn);
-		
-		close(conn);
-		
-		return result;
-	}
-
-	public ArrayList<Post> selectDlist(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-		
-		ArrayList<Post> list = new PostDAO().selectDlist(conn,currentPage,boardLimit);
-		
-		close(conn);
-		
-		
-		return list;
-	}
-
-	public int getDlistCount() {
-		Connection conn = getConnection();
-		
-		int result = new PostDAO().getDlistCount(conn);
-		
-		close(conn);
-		
-		
-		return result;
-	}
-
-	public int getKlistCount() {
-		Connection conn = getConnection();
-		
-		int result = new PostDAO().getKlistCount(conn);
-		
-		close(conn);
-		
-		return result;
-	}
-
-	public ArrayList<Post> selectKlist(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-		
-		ArrayList<Post> klist = new PostDAO().selectKlist(conn,currentPage,boardLimit);
-		
-		close(conn);
-		
-		return klist;
-	}
-
-	public int getRlistCount() {
-		Connection conn = getConnection();
-		
-		int result = new PostDAO().getRlistCount(conn);
-		
-		close(conn);
-		
-		return result;
-	}
-
-	public ArrayList<Post> selectRlist(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-		
-		ArrayList<Post> rlist = new PostDAO().selectRlist(conn,currentPage,boardLimit);
-		
-		close(conn);
-		
-		return rlist;
-	}
-
-	public int getRelistCount() {
-		Connection conn = getConnection();
-		
-		int result = new PostDAO().getRelistCount(conn);
-		
-		close(conn);
-		
-		return result;
-	}
-
-	public ArrayList<Post> selectRelist(int currentPage, int boardLimit) {
-		Connection conn = getConnection();
-		
-		ArrayList<Post> relist = new PostDAO().selectRelist(conn,currentPage,boardLimit);
-		
-		close(conn);
-		
-		return relist;
-	}
-	
+		// 게시글 상세보기
 	   public Post selectPostDetail(int pno) {
 		      Connection conn = getConnection();
 		      PostDAO dao = new PostDAO();
@@ -262,7 +444,7 @@ public class PostService {
 		      return post;
 		   }
 
-
+	   	//게시글 상세보기에서 사진이 있을때
 		   public ArrayList<Media> selectphoto(int pno) {
 		      Connection conn = getConnection();
 		      ArrayList<Media> list = new PostDAO().selectphoto(conn,pno);
@@ -271,7 +453,70 @@ public class PostService {
 		      
 		      return list;
 		   }
-	
-	
-	
+		  /////// 추가한거 /////////
+		// 검색 결과 게시물 총 개수
+
+		public int getSearchListCount(String searchtext, int categorynum, String searchcon, int date) {
+			Connection conn = getConnection();
+			PostDAO dao = new PostDAO();
+			int result = dao.getSearchListCount(conn,searchtext,categorynum,searchcon,date);
+			
+			close(conn);
+			return result;
+		}
+		
+		// 검색결과 게시판 목록
+		public ArrayList<Post> selectSearchList(String searchtext, int categorynum, String searchcon, int date,
+				int currentPage, int boardLimit) {
+			Connection conn = getConnection();
+			PostDAO dao = new PostDAO();
+			ArrayList<Post> list = dao.selectSearchList(conn,searchtext,categorynum,searchcon,date,currentPage,boardLimit);
+			
+			close(conn);
+			return list;
+		}
+		
+		// 모아보기 게시판 사진 불러오기
+		public ArrayList<Media> selectAllMList() {
+			Connection conn = getConnection();
+			ArrayList<Media> list = new PostDAO().selectAllMList(conn);
+			
+			return list;
+		}
+		
+		// 게시판 업데이트하기
+		public int updatePost(String title,String content,String postRange,int pno, ArrayList<Media> fileList,ArrayList<Media> originList) {
+			Connection conn = getConnection();
+			
+			PostDAO dao = new PostDAO();
+			
+			int result1 = dao.updatePost(conn,title,content,postRange,pno); //게시물 내용 업데이트
+			
+			int result2 = 0;
+						
+			int count = dao.photostatus(conn, pno); // 게시물에 사진이 있는지 없는지 확인
+			
+			originList.addAll(fileList);
+			if(!fileList.isEmpty()) {
+				if(count != 0 ) {
+					result2 = dao.deleteMedia(conn,pno);
+				} 
+				int result3 = dao.deleteinsertMedia(conn,originList,pno);
+				
+				if(result1 > 0 && result3 > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+			} else {
+				if(result1 > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+			}
+			close(conn);
+			return result1;
+		}	
+
 }

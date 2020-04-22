@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="member.model.vo.*" %>
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myUltary/myUltaryheader.css">
@@ -90,10 +90,12 @@
 				<img id="proimg" src="<%= request.getContextPath() %>/uploadFiles/<%= proImg.getWebName() %>">
 				<% } else{ %>
 				<img id="proimg" src="<%= request.getContextPath() %>/image/프로필.png">
-				<% } %>>
+				<% } %>
 			</div>
 	</header>
-	<h1><%= loginUser.getNickname() %></h1>
+	<div id="tlhostdiv">
+		<div id="tlhost"><%= loginUser.getNickname() %></div>
+	</div>
 <script>
 	$(function(){
 		$('#profileimgdiv').hide();

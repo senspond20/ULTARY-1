@@ -10,21 +10,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Media;
+import member.model.vo.Member;
 import post.model.service.PostService;
-import post.model.vo.PageInfo;
+import post.model.vo.CAns;
+import post.model.vo.MarkPost;
 import post.model.vo.Post;
+import post.model.vo.PostComment;
 
 /**
- * Servlet implementation class CmNoticeServlet
+ * Servlet implementation class MarkPostSelect
  */
-@WebServlet("/cmnotice.po")
-public class CmNoticeListServlet extends HttpServlet {
+@WebServlet("/markpost.tl")
+public class MarkPostSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CmNoticeListServlet() {
+    public MarkPostSelect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,52 +37,27 @@ public class CmNoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 커뮤니티 공지사항 목록 조회
-		// 페이징
+		String memberid = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		PostService service = new PostService();
 		
-		PostService pservice = new PostService();
+		ArrayList<Post> plist = service.selectMarkPost(memberid);
+		ArrayList<PostComment> pclist = service.selectMarkpc(memberid);
+		ArrayList<CAns> calist = service.selectMarkCAns(memberid);
+		ArrayList<Media> mlist = service.selectMarkm(memberid);
+		ArrayList<Media> proList = service.selectAllproimg();
 		
-		// 게시글 총 개수
-		int listCount = pservice.getNListCount();
-		
-		int currentPage;
-		int pageLimit=10;
-		int maxPage;
-		int startPage;
-		int endPage;
-		int boardLimit = 10;
-		
-		
-		currentPage = 1;
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		
-		maxPage = (int)((double)listCount / boardLimit + 0.9);
-		
-		startPage = (((int)((double)currentPage / pageLimit + 0.9)) -1) * pageLimit + 1;
-		
-		endPage = pageLimit + startPage - 1;
-		
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
-		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,maxPage,startPage,endPage,boardLimit);
-		
-		ArrayList<Post> nlist = pservice.selectNList(currentPage,boardLimit);
-	
 		String page = "";
-		if(nlist != null) {
-			page ="views/community/notice.jsp";
-			request.setAttribute("nlist", nlist);
-			request.setAttribute("pi", pi);
+		if(plist != null && pclist != null && calist != null && mlist != null && proList != null) {
+			request.setAttribute("plist", plist);
+			request.setAttribute("pclist", pclist);
+			request.setAttribute("calist", calist);
+			request.setAttribute("mlist", mlist);
+			request.setAttribute("proList", proList);
+			page = "views/myUltary/markPost.jsp";
 		} else {
+			request.setAttribute("msg", "게시물 즐겨찾기 조회에 실패");
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "공지사항 조회에 실패");
 		}
-	
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 	}

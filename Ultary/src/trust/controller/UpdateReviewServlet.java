@@ -1,6 +1,8 @@
 package trust.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
+import trust.model.service.MatchingService;
 import trust.model.vo.TrustReview;
 
 /**
@@ -32,17 +35,26 @@ public class UpdateReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String review = request.getParameter("review");
 		int score = Integer.parseInt(request.getParameter("score"));
+		int trNum = Integer.parseInt(request.getParameter("trnum"));
 		HttpSession session = request.getSession();
 		Member sessionMember =(Member)session.getAttribute("loginUser");
 		String loginUser = sessionMember.getMemberId();
-		int trNum = Integer.parseInt("trnum");
-		
+
 		TrustReview tr = new TrustReview();
 		tr.setTrNum(trNum);
 		tr.setTrScore(score);
 		tr.setTrContent(review);
 		tr.setMemberId(loginUser);
 	
+		int result = new MatchingService().updatetr(tr);
+		
+		if(result>0) {
+			response.sendRedirect("myreview.tu");
+		}else {
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage/jsp");
+			request.setAttribute("msg", "리뷰수정 실패");
+		}
+		
 	}
 
 	/**

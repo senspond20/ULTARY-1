@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import post.model.service.PostService;
+import post.model.vo.CAns;
 import post.model.vo.Post;
+import post.model.vo.PostComment;
 
 /**
  * Servlet implementation class TimeLIneServlet
@@ -36,15 +38,23 @@ public class TimeLineServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PostService service = new PostService();
 		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		String nickname = ((Member)request.getSession().getAttribute("loginUser")).getNickname();
 		
 		ArrayList<Post> pList = service.selectTList(1, memberId);
+		ArrayList<PostComment> pcList = service.selectComment(memberId);
 		
 		ArrayList<Media> mList = service.selectTList(2, memberId);
+		ArrayList<Media> proList = service.selectproimg(nickname);
+		
+		ArrayList<CAns> cList = service.selectCAns(memberId);
 		
 		String page = null;
-		if(pList != null && mList != null) {
+		if(pList != null && mList != null && pcList != null && cList != null) {
 			request.setAttribute("pList", pList);
 			request.setAttribute("mList", mList);
+			request.setAttribute("pcList", pcList);
+			request.setAttribute("cList", cList);
+			request.setAttribute("proList", proList);
 			page = "views/myUltary/ultaryMain.jsp";
 		} else {
 			request.setAttribute("msg", "타임라인 조회에 실패헀습니다.");

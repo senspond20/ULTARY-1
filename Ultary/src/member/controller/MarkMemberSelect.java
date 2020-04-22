@@ -1,4 +1,4 @@
-package admin.controller;
+package member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import admin.model.service.InquiryService;
-import admin.model.service.NoticeService;
-import admin.model.vo.Inquiry;
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
- * Servlet implementation class InquirySearchServlet
+ * Servlet implementation class MarkMember
  */
-@WebServlet("/search.inq")
-public class InquirySearchServlet2 extends HttpServlet {
+@WebServlet("/markmember.mem")
+public class MarkMemberSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InquirySearchServlet2() {
+    public MarkMemberSelect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,30 +32,20 @@ public class InquirySearchServlet2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		String option = request.getParameter("option");
-		String search = request.getParameter("search");
-		String check = request.getParameter("check");
+		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		
-		ArrayList<Inquiry> list = new InquiryService().selectFilter(option, search, check);
+		ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
 		
-		
-		String page = null;
-		if(list != null) {
-			page = "views/support/InquiryListView.jsp";
-			
-			request.setAttribute("list", list);
-			request.setAttribute("option", option);
-			request.setAttribute("search", search);
-			request.setAttribute("check",check);
-		}else {
-			page ="views/common/errorPage.jsp";
-			request.setAttribute("msg", "실패했습니다.");
+		String page ="";
+		if(markList != null) {
+			page = "views/myUltary/markMember.jsp";
+			request.setAttribute("markList", markList);
+		} else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "관심회원 조회에 실패하였습니다.");
 		}
-	
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
 	}
 
 	/**

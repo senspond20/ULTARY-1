@@ -1,29 +1,30 @@
-package member.controller;
+package post.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
-import member.model.vo.Member;
+import com.google.gson.Gson;
+
+import post.model.service.PostService;
+import post.model.vo.PostComment;
 
 /**
- * Servlet implementation class MarkMember
+ * Servlet implementation class selectCommentServlet
  */
-@WebServlet("/markmember.mem")
-public class MarkMember extends HttpServlet {
+@WebServlet("/selectComment.tl")
+public class selectCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarkMember() {
+    public selectCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +33,12 @@ public class MarkMember extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		int pNum = Integer.parseInt(request.getParameter("pNum"));
 		
-		ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
+		ArrayList<PostComment> list = new PostService().selectCommentList(pNum);
 		
-		String page ="";
-		if(markList != null) {
-			page = "views/myUltary/markMember.jsp";
-			request.setAttribute("markList", markList);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "관심회원 조회에 실패하였습니다.");
-		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		response.setContentType("application/json");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

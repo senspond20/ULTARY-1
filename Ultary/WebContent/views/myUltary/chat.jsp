@@ -49,7 +49,7 @@
 			<div class="chatcontent">
 				<div class="chatcontentprofile">
 					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="image/프로필.png">
+						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
 					</div>
 					<div class="chatcontentprofilename">
 						닉네임
@@ -70,7 +70,7 @@
 			<div class="chatcontent">
 				<div class="chatcontentprofile">
 					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="image/프로필.png">
+						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
 					</div>
 					<div class="chatcontentprofilename">
 						닉네임
@@ -91,7 +91,7 @@
 			<div class="chatcontent">
 				<div class="chatcontentprofile">
 					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="image/프로필.png">
+						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
 					</div>
 					<div class="chatcontentprofilename">
 						닉네임

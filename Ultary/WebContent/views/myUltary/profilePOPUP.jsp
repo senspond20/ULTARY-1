@@ -3,7 +3,7 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String originImg = (String)request.getParameter("originImg");
-%> 
+%>
 <!DOCTYPE html>
 <html>
 <head>

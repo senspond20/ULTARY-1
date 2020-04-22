@@ -1,0 +1,186 @@
+@charset "UTF-8";
+/* 게시판 소개 */
+.maincap{
+	text-align:left;
+	margin-left:15px;
+	margin-right:15px;
+	margin-top:10px;
+}
+.cap_p_head{
+	font-weight:bold;
+	font-size:30px;
+	display:inline;
+}
+.cap_p_tag{
+	font-weight:600; 
+	font-size:15px;
+	display:inline;
+}
+/* 검색 박스 css */
+.search_wrap{text-align: center;padding:11px;}
+.searchselect{display:inline-block;}
+.searchselect>select{
+	width:150px;
+	height:30px;
+	vertical-align: middle;
+}
+.textbox{
+	width:170px;
+	height:25px;
+}
+.find{
+	background-color:rgb(244, 219, 179);
+	border-color: rgb(244, 219, 179);
+	width:70px;
+	height:31px;
+	border-width: 0;
+	font-weight: bold;
+	border-radius: 10%;
+	cursor: pointer;
+}
+
+#mainhr{
+	height:2px;
+	background-color:white;
+	border:none;
+	margin-top:10px;
+	margin-bottom: 10px;
+}
+/* 정렬 기준  css */
+#hr2{
+	width:700px;
+	height:2px;
+	background-color:white;
+	border:none;
+	float:left;
+	margin-right:15px;
+	margin-left:15px;
+}
+.array_wrap{
+	margin-bottom: 15px;
+	vertical-align: middle;
+}
+/* 게시판 리스트 감싸는 부분 css*/
+.cmcontent{
+	padding:10px;
+	background-color:#5CD1E5;
+	border-radius:1%;
+}
+.cm_wrap{
+	background:white;
+	padding:15px;
+	border-radius:1%;
+}
+.cmcontent a{
+	text-decoration: none;
+	color:inherit;
+}
+
+/*boardhead 크기*/
+.board_all .num{width:10%;}
+.board_all .tit{width:40%;}
+.board_all .writer{width:15%;}
+.board_all .wdate{width:15%;}
+.board_all .recommend{width:10%;}
+.board_all .view{width:10%;}
+
+.board_all{
+	text-align: center;
+}
+.boardhead,
+.boardbody .boardcontent{
+	font-size:0px;	
+	padding:10px 0;
+}
+.boardhead>div,
+.boardbody .boardcontent>div{
+	display:inline-block;
+	font-size:15px;
+}
+.boardhead>div{
+	color:white;
+	font-size:17px;	
+}
+.boardhead{
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	background-color:#5CD1E5;
+}
+.boardbody .boardcontent{
+	border-bottom :1px solid lightgray;
+}
+/* 펼쳤을때 */
+.boardopen{
+	display:none;
+}
+.oprofile{
+	margin:10px;
+	width:10%;
+	float:left;
+}
+.opencontent{
+	margin:10px;
+	text-align:left;
+}
+.otitle{
+	font-weight:bold;
+}
+.likecount{
+	margin:10px;
+	text-align:right;
+	
+}
+.cwriter{
+	color:blue;
+	font-weight:bold;
+	margin-right:10px;
+}
+/* 공지사항을 제외한 글쓰기 버튼 */
+.wbtn_wrap{
+	text-align: right;
+	margin-top:15px;
+}
+.wbtn{
+	display:inline-block;
+	border-style:solid;
+	border-color: lightgray;
+	border-width: 1px;
+	padding:10px;
+	cursor:pointer;
+}
+#pencil{
+	width:15px;
+	height: 15px;
+	margin-right:6px;
+}
+/* 관리자 전용 글쓰기버튼*/
+#adminwritebtn{
+	display:inline-block;
+	border-style:solid;
+	border-color:lightgray;
+	border-width: 1px;
+	padding:5px;
+}
+/* 펼쳐보기 했을때 프로필 사진 크기*/
+.sectionpic{
+    border-radius: 50px;
+    width: 60px;
+    height: 60px;
+}
+/* 페이징 버튼 css */
+.pagingArea{
+	margin-top : 10px;
+}
+.pagingArea button{
+	background: none;
+    border: none;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+/* 펼쳐보기 버튼 css */
+.switch_wrap{
+	display: inline;
+	margin-left: 5px;
+	text-align: right;
+}

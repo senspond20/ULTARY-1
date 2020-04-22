@@ -4,7 +4,6 @@
 
 	String memberId = request.getParameter("memberId");
 	String email = request.getParameter("email");
-	질문하고 답 받아오기
 %>     
     
 <!DOCTYPE html>
@@ -58,8 +57,8 @@
 				<!-- 업데이트하기 위해 히든으로 숨겨줌 -->
 				<input type="hidden" name="memberId" value="<%= memberId %>">
 				<input type="hidden" name="email" value="<%= email %>">
-				<input type="hidden" name="email" value="<%= 질문 %>">
-				<input type="hidden" name="email" value="<%= 질문답 %>">
+				<input type="hidden" name="email" value="고쳐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!고쳐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!">
+				<input type="hidden" name="email" value="고쳐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!고쳐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!">
 				<button type=submit id="loginBtn_normal" class="loginBtn">변경하기</button>
 				<br>
 				<br>

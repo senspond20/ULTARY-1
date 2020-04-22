@@ -34,7 +34,7 @@
 				
 				
 					<div>
-            <form action="<%=request.getContextPath()%>/Tpostsend.tu">
+            <form action="<%=request.getContextPath()%>/Tpostsend.tu" onsubmit="return datacheck();">
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
 				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
@@ -60,7 +60,8 @@
 							<table id="page3_table">
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
-									<td><label><%=pet.getPetName() %></label></td>
+									<td><label><%=pet.getPetName() %></label><input type="hidden" name="petnum" value="<%=pet.getPetNum()%>"></td>
+									
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
@@ -181,7 +182,7 @@
 									<div class="page4-1">비상연락처</div>
 								</td>
 								<td>
-									<input type="tel" name="tel" id="tel">
+									<input type="tel" name="tel" id="tel" value="">
 								</td>
 								<td>
 								</td>
@@ -192,7 +193,7 @@
 						<div id="page5-title">
 						<%=m.getNickname() %> 님에게 보내는 메세지
 						</div>
-							<textarea id="page5-textarea" cols="30" rows="30" name="trustAdd"></textarea>
+							<textarea id="page5-textarea" cols="30" rows="30" name="trustAdd">-</textarea>
 
 					</div>
 						<input type="submit" id="sub" value="요청하기">
@@ -200,6 +201,39 @@
 				</div>
 			</div>
             </form>
+         <script>
+         function datacheck(){
+        	 var startdate = $('#startDate').val();
+	         var enddate = $('#endDate').val();
+        	 
+	         if($('#place11').val()=='-선택-' || $('#nation1').val=='-선택-' ||$('#text1').val()==""){
+					alert("지역을 입력해주세요");
+					return false;
+	         }else if($('#startDate').val()==""){
+	        	 alert("시작날자를 입력해주세요");
+	        	 return false;
+	         }else if($('#endDate').val()==""){
+	        	 alert("끝나는 날자를 입력해주세요");
+	        	 return false;
+	         }else if($('#select3').val()=="선택"){
+	        	 alert("위탁 방식을 선택해주세요");
+	        	 $('#select3').focus();
+	        	 return false;
+	         }else if($('#tel').val()=""){
+	        	 alert("비상연락처를 입력해주세요");
+	        	 $('#tel').focus();
+	        	 return false;
+	         }else if(startdate > enddate){
+	        	 alert("종료날자는 시작날자보다 빠를수 없습니다.")
+	        	 return false;
+	         }else{
+	        	 return true;
+	         }
+	         
+	         
+	         
+         }
+         </script>
          </div>
 				
 				

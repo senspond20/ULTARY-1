@@ -122,7 +122,7 @@ $("#self").change(function() {
 </head>
 <body>
 	<div id="mypage">
-		<form id="myForm2" action="<%= request.getContextPath() %>/update.pet" method="post" encType="multipart/form-data">
+		<form id="myForm2" action="<%= request.getContextPath() %>/insert.pet" method="post" encType="multipart/form-data">
 		<center><h2>반려동물 정보</h2></center>
 	<table>
 		<tr>
@@ -172,12 +172,13 @@ $("#self").change(function() {
 			<th>반려동물 종류</th>
 			<td>		
 			<select id="petkind" name="petkind" class="text" placeholder="반려동물" style="height: 25px;">
-								<option value="강아지">강아지</option>
-								<option value="고양이">고양이</option>
-								<option value="설치류">설치류</option>
-								<option value="파충류">파충류</option>
-								<option value="조류">조류</option>	
-								<option value="기타">기타</option>
+								<option value="1">강아지</option>
+								<option value="2">고양이</option>
+								<option value="3">설치류</option>
+								<option value="4">파충류</option>
+								<option value="5">조류</option>	
+								<option value="6">어류</option>
+								<option value="7">기타</option>
 			</select>
 			</td>
 		</tr>
@@ -193,10 +194,8 @@ $("#self").change(function() {
 		</tr>
 		
 	</table>
-	</form>
-	
 	<center><input id="retoch" type="submit" value="수정저장" style='cursor:pointer;'></button></center>
-	
+	</form>
 	</div>
 </body>
 </html>

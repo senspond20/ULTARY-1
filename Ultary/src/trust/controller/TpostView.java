@@ -35,7 +35,7 @@ public class TpostView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TrustPost tp = (TrustPost)request.getAttribute("tp");
+		TrustPost tp = (TrustPost)request.getAttribute("tp"); 
 		HttpSession session = request.getSession();
 		Member sessionMember =(Member)session.getAttribute("loginUser");
 		String loginUser = sessionMember.getMemberId(); 

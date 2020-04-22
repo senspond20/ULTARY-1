@@ -1,9 +1,9 @@
 package member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +15,7 @@ import member.model.service.MemberService;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import post.model.service.PostService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -41,14 +42,12 @@ public class LoginServlet extends HttpServlet {
 		String memberid = request.getParameter("memberid");
 		String password = request.getParameter("password");
 	
-		System.out.println(memberid + ", " + password); //아이디, 비번 받아오는거 확인
 		
 		Member m = new Member(memberid, password);
-//		System.out.println("m" + m);
 		Member loginUser = new MemberService().loginMember(m);
-		
-		
-		System.out.println(loginUser);
+		Media proImg = new PostService().selectProImg(memberid);
+		ArrayList<Pet> loginPet = new MemberService().loginPet(memberid);
+		ArrayList<Media> loginMedia = new MemberService().loginMedia(memberid);
 		//**리퀘스트는 한번만 요청 가능하다!!! 세션을 만들어서 로그인 정보를 넣을것.
 		if(loginUser != null) {
 			/*
@@ -58,10 +57,10 @@ public class LoginServlet extends HttpServlet {
 			//세션영역에 로그인 정보 담음 
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			
-			
-			
-			session.setMaxInactiveInterval(600); 
+			session.setAttribute("loginPet", loginPet);
+			session.setAttribute("loginMedia", loginMedia);
+			session.setAttribute("proImg", proImg);
+			session.setMaxInactiveInterval(30000); 
 			//10분동안 session 유지
 			
 		//response.sendRedirect("index.jsp");
@@ -76,29 +75,12 @@ public class LoginServlet extends HttpServlet {
 			// 만약에 sendRedirect가 세션영역은 상관없이 리퀘스트 영역만 무효과 시키기 때문에 
 			// 세션에 담긴 정보는 살아있음. 그래서 sendRedirect를 사용해도 아무 문제가 없음.
 			
-		}else {
-//		else {
-//			request.setAttribute("msg", "로그인 실패");
-//			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-//			view.forward(request, response);
-//		}
-		
-//			PrintWriter out = response.getWriter();
-//			if(loginUser != null) {
-//				out.append("success"); //회원조회 성공
-//			}else {
-//				out.append("fail"); //회원조회 실패
-//			}
-//			out.flush();
-//			out.close();	
-			
-			
-		PrintWriter out = response.getWriter();
-			out.append("fail"); //회원조회 실패
-			out.flush();
-			out.close();
-		
+		} else {
+			request.setAttribute("msg", "로그인 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
 		}
+	
 	}
 	
 
