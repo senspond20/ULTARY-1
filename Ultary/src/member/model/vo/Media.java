@@ -22,6 +22,18 @@ public class Media {
 		this.memberId = memberId;
 	}
 	
+	
+	
+	public Media(int mediaNum, String imgroute, String imgName, String webName, int mediaUse, String memberId) {
+		super();
+		this.mediaNum = mediaNum;
+		this.imgroute = imgroute;
+		this.imgName = imgName;
+		this.webName = webName;
+		this.mediaUse = mediaUse;
+		this.memberId = memberId;
+	}
+
 	public Media(int mediaNum, String imgroute, String imgName, String webName, int mediaUse, String memberId,
 			int postNum, int petNum) {
 		super();
