@@ -385,9 +385,9 @@
 						</li>
 						<li><a href='#'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href='#'>위탁검색</a></li>
+								<li><a href='<%=request.getContextPath() %>/views/trustMatch/matching01.jsp'>위탁검색</a></li>
 								<li><a href='#'>의뢰 관리</a></li>
-								<li><a href='#'>내가 남긴 리뷰</a></li>
+								<li><a href='<%=request.getContextPath() %>/views/trustMatch/matching07.jsp'>내가 남긴 리뷰</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>마이페이지</a>

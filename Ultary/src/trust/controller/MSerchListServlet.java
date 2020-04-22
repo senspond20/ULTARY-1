@@ -43,15 +43,15 @@ public class MSerchListServlet extends HttpServlet {
 		String h_area3 = request.getParameter("h_area3");
 		
 		switch(h_area1) {
-		case "1" :h_area ="서울"; break;
-		case "2" :h_area ="부산"; break;
-		case "3" :h_area ="대구"; break;
-		case "4" :h_area ="인천"; break;
-		case "5" :h_area ="광주"; break;
-		case "6" :h_area ="대전"; break;
-		case "7" :h_area ="울산"; break;
-		case "8" :h_area ="강원"; break;
-		case "9" :h_area ="경기"; break;
+		case "1" :h_area ="서울시"; break;
+		case "2" :h_area ="부산시"; break;
+		case "3" :h_area ="대구시"; break;
+		case "4" :h_area ="인천시"; break;
+		case "5" :h_area ="광주시"; break;
+		case "6" :h_area ="대전시"; break;
+		case "7" :h_area ="울산시"; break;
+		case "8" :h_area ="강원시"; break;
+		case "9" :h_area ="경기시"; break;
 		case "10" :h_area ="경남"; break;
 		case "11" :h_area ="경북"; break;
 		case "12" :h_area ="전남"; break;
@@ -79,7 +79,6 @@ public class MSerchListServlet extends HttpServlet {
 		} else {
 			serch2 = check2[0];
 		} 
-		System.out.println(serch2);
 		Member member = new Member();
 		member.setAddress(address);
 		member.setTrustfield(serch1);

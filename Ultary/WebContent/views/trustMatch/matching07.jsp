@@ -54,7 +54,7 @@
 					</div>
 					<div class="content-4">
 						<input type="button" class="btn" id="sBtn" name="sBtn" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=tr.get(i).getTrNum()%>'">
-						<input type="reset" class="btn" id="cBtn" name="cBtn" value="삭제하기">
+						<input type="button" class="btn" id="cBtn" name="cBtn" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/trustdelete.tu?trnum=<%=tr.get(i).getTrNum()%>'">
 					</div>
 				</div>
 			 <%} %>

@@ -56,7 +56,7 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
-		
+		close(conn);
 		return pet;
 	}
 
@@ -98,6 +98,7 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return balshin;
 	}
 
@@ -110,6 +111,7 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return susin;
 	}
 
@@ -123,7 +125,7 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
-		
+		close(conn);
 		return result;
 	}
 
@@ -139,6 +141,7 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return m;
 	}
 
@@ -152,6 +155,7 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return result;
 	}
 
@@ -174,9 +178,37 @@ public class MatchingService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return tr;
 	}
 
+	public int updatetr(TrustReview tr) {
+		Connection conn = getConnection();
+		
+		int result = new MatchingDAO().updatetr(conn,tr);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deletetr(int trnum) {
+		Connection conn = getConnection();
+		
+		int result = new MatchingDAO().deletetr(conn,trnum);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 
 

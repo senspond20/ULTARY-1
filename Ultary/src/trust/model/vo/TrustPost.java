@@ -12,10 +12,45 @@ public class TrustPost {
 	private String sushin; // 위탁수신자 닉네임
 	private String balshin; 
 	private int position;
+	private int petnum;
+	private int trnum;
 	
 	public TrustPost() {}
 
 	
+
+	public TrustPost(int tpostNum, Date trustsDue, Date trusteDue, int trustMeans, String trustPhone, String trustPS,
+			String sushin, String balshin, int position, int petnum, int trnum) {
+		super();
+		this.tpostNum = tpostNum;
+		this.trustsDue = trustsDue;
+		this.trusteDue = trusteDue;
+		this.trustMeans = trustMeans;
+		this.trustPhone = trustPhone;
+		this.trustPS = trustPS;
+		this.sushin = sushin;
+		this.balshin = balshin;
+		this.position = position;
+		this.petnum = petnum;
+		this.trnum = trnum;
+	}
+	
+
+
+	public TrustPost(Date trustsDue, Date trusteDue, int trustMeans, String trustPhone, String trustPS, String sushin,
+			String balshin, int petnum) {
+		super();
+		this.trustsDue = trustsDue;
+		this.trusteDue = trusteDue;
+		this.trustMeans = trustMeans;
+		this.trustPhone = trustPhone;
+		this.trustPS = trustPS;
+		this.sushin = sushin;
+		this.balshin = balshin;
+		this.petnum = petnum;
+	}
+
+
 
 	public TrustPost(int tpostNum, Date trustsDue, Date trusteDue, int trustMeans, String trustPhone, String trustPS,
 			String sushin, String balshin) {
@@ -45,7 +80,7 @@ public class TrustPost {
 		this.balshin = balshin;
 		this.position = position;
 	}
-
+	
 
 
 	public TrustPost(Date trustsDue, Date trusteDue, int trustMeans, String trustPhone, String trustPS, String sushin,
@@ -77,6 +112,30 @@ public class TrustPost {
 	public void setTrustsDue(Date trustsDue) {
 		this.trustsDue = trustsDue;
 	}
+	
+	public int getPetnum() {
+		return petnum;
+	}
+
+
+
+	public void setPetnum(int petnum) {
+		this.petnum = petnum;
+	}
+
+
+
+	public int getTrnum() {
+		return trnum;
+	}
+
+
+
+	public void setTrnum(int trnum) {
+		this.trnum = trnum;
+	}
+
+
 
 	public Date getTrusteDue() {
 		return trusteDue;
@@ -151,8 +210,11 @@ public class TrustPost {
 	public String toString() {
 		return "TrustPost [tpostNum=" + tpostNum + ", trustsDue=" + trustsDue + ", trusteDue=" + trusteDue
 				+ ", trustMeans=" + trustMeans + ", trustPhone=" + trustPhone + ", trustPS=" + trustPS + ", sushin="
-				+ sushin + ", balshin=" + balshin + ", position=" + position + "]";
+				+ sushin + ", balshin=" + balshin + ", position=" + position + ", petnum=" + petnum + ", trnum=" + trnum
+				+ "]";
 	}
+
+
 
 
 

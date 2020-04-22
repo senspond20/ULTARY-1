@@ -8,23 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import member.model.vo.Member;
 import trust.model.service.MatchingService;
-import trust.model.vo.TrustReview;
 
 /**
- * Servlet implementation class UpdateReviewServlet
+ * Servlet implementation class TrustDelete
  */
-@WebServlet("/updatereview.tu")
-public class UpdateReviewServlet extends HttpServlet {
+@WebServlet("/trustdelete.tu")
+public class TrustDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateReviewServlet() {
+    public TrustDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,28 +30,16 @@ public class UpdateReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String review = request.getParameter("review");
-		int score = Integer.parseInt(request.getParameter("score"));
-		int trNum = Integer.parseInt(request.getParameter("trnum"));
-		HttpSession session = request.getSession();
-		Member sessionMember =(Member)session.getAttribute("loginUser");
-		String loginUser = sessionMember.getMemberId();
-
-		TrustReview tr = new TrustReview();
-		tr.setTrNum(trNum);
-		tr.setTrScore(score);
-		tr.setTrContent(review);
-		tr.setMemberId(loginUser);
-	
-		int result = new MatchingService().updatetr(tr);
+		int trnum = Integer.parseInt(request.getParameter("trnum"));
 		
-		if(result>0) {
+		int result = new MatchingService().deletetr(trnum);
+		
+		if(result >0) {
 			response.sendRedirect("myreview.tu");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage/jsp");
-			request.setAttribute("msg", "리뷰수정 실패");
+			request.setAttribute("msg", "리뷰삭제 실패");
 		}
-		
 	}
 
 	/**

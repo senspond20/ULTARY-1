@@ -56,7 +56,15 @@ public class MatchingDAO {
 				li[i]="%%";
 			}
 		}
-			
+System.out.println(li[0]);
+System.out.println(li[1]);
+System.out.println(li[2]);
+System.out.println(li[3]);
+System.out.println(li[4]);
+System.out.println(li[5]);
+System.out.println(member.getTrustmeans());
+System.out.println(member.getAddress());
+System.out.println(pet);
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, li[0]);
@@ -74,7 +82,7 @@ public class MatchingDAO {
 			if(rset.next()) {
 				result= rset.getInt(1);
 			}
-			
+System.out.println("result="+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -210,21 +218,23 @@ public class MatchingDAO {
 			while(rset.next()) {
 				Member m = new Member(rset.getString("memberid"),
 						  rset.getString("nickname"),
-						  rset.getString("membername"),
+						  rset.getString("memberName"),
+						  rset.getString("password"),
 						  rset.getString("gender").charAt(0),
 						  rset.getString("birth"),
 						  rset.getString("email"),
 						  rset.getString("phone"),
 						  rset.getDate("enrolldate"),
 						  rset.getString("address"),
+						  rset.getInt("pwquery"),
+						  rset.getString("pwqAns"),
 						  rset.getString("trust").charAt(0),
 						  rset.getInt("trustmeans"),
-						  rset.getString("trustfield"),
-						  rset.getString("trustadd"),
+						  rset.getString("trustField"),
+						  rset.getString("trustAdd"),
 						  rset.getInt("markscore"),
 						  rset.getString("warn").charAt(0),
-						  rset.getString("status").charAt(0));
-				
+						  rset.getString("Status").charAt(0));
 				list.add(m);
 			}
 			
@@ -253,13 +263,16 @@ public class MatchingDAO {
 			while(rset.next()) {
 			m = new Member(rset.getString("memberid"),
 					  rset.getString("nickname"),
-					  rset.getString("membername"),
+					  rset.getString("memberName"),
+					  rset.getString("password"),
 					  rset.getString("gender").charAt(0),
 					  rset.getString("birth"),
 					  rset.getString("email"),
 					  rset.getString("phone"),
 					  rset.getDate("enrolldate"),
 					  rset.getString("address"),
+					  rset.getInt("pwQuery"),
+					  rset.getString("pwqAns"),
 					  rset.getString("trust").charAt(0),
 					  rset.getInt("trustmeans"),
 					  rset.getString("trustField"),
@@ -293,10 +306,12 @@ public class MatchingDAO {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				pet = new Pet(rset.getString("petname"),
+				pet = new Pet( rset.getInt("petnum"),
+								rset.getString("petname"),
 								rset.getInt("petage"),
 								rset.getString("petgender").charAt(0),
-								rset.getString("petkind").charAt(0));
+								rset.getString("petkind").charAt(0),
+								rset.getString("memberId"));
 			}
 			System.out.println(pet);
 		} catch (SQLException e) {
@@ -324,21 +339,24 @@ public class MatchingDAO {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				m = new Member(rset.getString("memberid"),
-									  rset.getString("nickname"),
-									  rset.getString("membername"),
-									  rset.getString("gender").charAt(0),
-									  rset.getString("birth"),
-									  rset.getString("email"),
-									  rset.getString("phone"),
-									  rset.getDate("enrolldate"),
-									  rset.getString("address"),
-									  rset.getString("trust").charAt(0),
-									  rset.getInt("trustmeans"),
-									  rset.getString("trustfield"),
-									  rset.getString("trustAdd"),
-									  rset.getInt("markscore"),
-									  rset.getString("warn").charAt(0),
-									  rset.getString("status").charAt(0));
+						  rset.getString("nickname"),
+						  rset.getString("memberName"),
+						  rset.getString("password"),
+						  rset.getString("gender").charAt(0),
+						  rset.getString("birth"),
+						  rset.getString("email"),
+						  rset.getString("phone"),
+						  rset.getDate("enrolldate"),
+						  rset.getString("address"),
+						  rset.getInt("pwQuery"),
+						  rset.getString("pwqAns"),
+						  rset.getString("trust").charAt(0),
+						  rset.getInt("trustmeans"),
+						  rset.getString("trustField"),
+						  rset.getString("trustAdd"),
+						  rset.getInt("markscore"),
+						  rset.getString("warn").charAt(0),
+						  rset.getString("Status").charAt(0));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -366,6 +384,7 @@ public class MatchingDAO {
 			pstmt.setString(5, tp.getTrustPS());
 			pstmt.setString(6, tp.getSushin());
 			pstmt.setString(7, tp.getBalshin());
+			pstmt.setInt(8, tp.getPetnum());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -610,6 +629,52 @@ public class MatchingDAO {
 		
 		
 		return tr;
+	}
+	
+	public int updatetr(Connection conn, TrustReview tr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatetr");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, tr.getTrContent());
+			pstmt.setInt(2, tr.getTrScore());
+			pstmt.setInt(3, tr.getTrNum());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deletetr(Connection conn, int trnum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deletetr");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, trnum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 }

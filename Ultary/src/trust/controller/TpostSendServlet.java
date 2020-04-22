@@ -34,6 +34,8 @@ public class TpostSendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int petnum = Integer.parseInt(request.getParameter("petnum"));
+		
 		String area1 = request.getParameter("h_area1");
 		String area2 = request.getParameter("h_area2");
 		String area3 = request.getParameter("h_area3");
@@ -51,7 +53,7 @@ public class TpostSendServlet extends HttpServlet {
 		
 		String memberid = request.getParameter("memberid");
 		
-		TrustPost tp = new TrustPost(startDate,endDate,trustmeans,tel,trustAdd,memberid,loginUser);
+		TrustPost tp = new TrustPost(startDate,endDate,trustmeans,tel,trustAdd,memberid,loginUser,petnum);
 		
 		int result = new MatchingService().sendTustpost(tp);
 		

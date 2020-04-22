@@ -4,7 +4,6 @@
 
 	String memberId = request.getParameter("memberId");
 	String email = request.getParameter("email");
-	질문하고 답 받아오기
 %>     
     
 <!DOCTYPE html>

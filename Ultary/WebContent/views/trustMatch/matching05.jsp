@@ -72,19 +72,19 @@
 							<table id="page3_table">
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
-									<td><label>모모</label></td>
+									<td><label><%=mypet.getPetName() %></label></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
-									<td><label>강아지</label></td>
+									<td><label><%=mypet.getPetKind() %></label></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">성별</div></td>
-									<td><label>여</label></td>
+									<td><label><%=mypet.getPetGender() %></label></td>
 								</tr>
 								<tr>
-									<td class="page3_td"><div class="petname">출생년도</div></td>
-									<td><label>2019</label></td>
+									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
+									<td><label><%=mypet.getPetage() %></label></td>
 								</tr>
 							</table>
 						</div>
