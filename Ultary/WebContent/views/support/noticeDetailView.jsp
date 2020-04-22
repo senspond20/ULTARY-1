@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ULTARY</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 <style type="text/css">
 #content {
